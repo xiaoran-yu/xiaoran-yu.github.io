@@ -51,11 +51,11 @@
   .sidebar-footer a:hover { color:#fff; }
 
   /* Main */
-  .main-wrap { margin-left:220px; flex:1; overflow-x:hidden; }
+  .main-wrap { margin-left:220px; flex:1; overflow-x:hidden; width:calc(100% - 220px); }
 
   /* Hero — compact tech */
   .hero {
-    position:relative; padding:60px 60px 50px; text-align:center;
+    position:relative; padding:60px 48px 50px; text-align:center;
     background:
       linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px),
@@ -85,11 +85,11 @@
   .hero .social a:hover { color:#E8ECF4; }
 
   /* Content */
-  .content { max-width:1500px; margin:0 auto; padding:0 60px 80px; }
+  .content { margin:0 auto; padding:0 48px 80px; }
   .section-title { font-size:16px; text-transform:uppercase; letter-spacing:3px; color:#64748B; margin:56px 0 24px; font-weight:600; }
 
   /* Modules */
-  .modules { display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .modules { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
   .module-card {
     border-radius:20px; padding:42px 38px; position:relative; overflow:hidden;
     min-height:380px; transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
