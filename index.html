@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="大鲸鱼 · 于潇然的个人网站。财务尽调、投资分析、会计思考。">
+<title>大鲸鱼 · 于潇然</title>
+<style>
+  :root {
+    --bg: #FBF8F4;
+    --text: #1E293B;
+    --text2: #64748B;
+    --border: #E2E8F0;
+    --radius: 18px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif;
+    background: var(--bg); color: var(--text); font-size: 17px; line-height: 1.85;
+    max-width: 780px; margin: 0 auto; padding: 60px 24px;
+  }
+  header { margin-bottom: 60px; }
+  header h1 { font-size: 42px; font-weight: 700; letter-spacing: -0.5px; }
+  header p { font-size: 18px; color: var(--text2); margin-top: 8px; line-height: 1.6; }
+  nav { margin-top: 28px; display: flex; gap: 20px; }
+  nav a { color: var(--text2); text-decoration: none; font-size: 15px; transition: color .2s; }
+  nav a:hover { color: #3B82F6; }
+  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); margin: 48px 0 20px; font-weight: 600; }
+  .article-list { display: flex; flex-direction: column; gap: 0; }
+  .article-item {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: inherit; transition: all .2s;
+  }
+  .article-item:hover { color: #3B82F6; }
+  .article-item .title { font-size: 19px; font-weight: 700; }
+  .article-item .meta { font-size: 13px; color: var(--text2); white-space: nowrap; margin-left: 16px; }
+  .article-item .desc { font-size: 14px; color: var(--text2); margin-top: 2px; }
+  .tag { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 10px; font-weight: 600; margin-right: 6px; }
+  .tag-fdd { background: #DBEAFE; color: #1E40AF; }
+  .tag-essay { background: #FCE7F3; color: #9D174D; }
+  .tag-finance { background: #D1FAE5; color: #065F46; }
+  footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text2); line-height: 1.8; }
+  footer a { color: #3B82F6; text-decoration: none; }
+  @media (max-width: 600px) { body { padding: 32px 16px; } header h1 { font-size: 32px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>大鲸鱼</h1>
+  <p>于潇然的个人网站。<br>写私募股权实务、投资分析、会计跨学科思考。</p>
+  <nav>
+    <a href="/">文章</a>
+    <a href="#about">关于</a>
+    <a href="https://github.com/xiaoran-yu" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<div class="section-title">文章</div>
+<div class="article-list">
+  <a href="articles/lit-accountants.html" class="article-item">
+    <div><div class="title">文学史上的会计</div><div class="desc">虚构作品中的算账人——固定类型、跨文化一致、不是写会计而是借用会计</div></div>
+    <span class="meta">2026-05-28</span>
+  </a>
+  <a href="articles/rd-capitalization.html" class="article-item">
+    <div><div class="title">研发费用化后作价入股：一个会计矛盾</div><div class="desc">费用化的研发支出，能否在出资时&quot;复活&quot;为资产？</div></div>
+    <span class="meta">2026-05-22</span>
+  </a>
+</div>
+
+<div class="section-title" id="about">关于</div>
+<p style="font-size:15px;color:var(--text2);line-height:1.9">
+于潇然，财务专家。审计尽调、上市公司CFO、金融投资管理经验。目前在弘毅集团负责财务尽调及投资分析工作。
+关注私募股权尽调方法论、投资模型构建、会计准则在交易中的应用。
+业余写会计跨学科阅读——文学、历史、哲学中与"算账"相关的片段。
+</p>
+<p style="font-size:13px;color:var(--text2);margin-top:12px">
+联系：<a href="mailto:yuxiaoran@example.com">yuxiaoran@example.com</a>
+</p>
+
+<footer>
+  &copy; 2026 于潇然 · 本站为独立站点，内容原创。<br>
+  由 <a href="https://obsidian.md" target="_blank">Obsidian</a> 编写，静态托管。
+</footer>
+
+</body>
+</html>
