@@ -12,6 +12,14 @@ const ARTICLES_DIR = path.join(SITE, 'articles');
 // Article mapping: vault path → site slug
 const ARTICLES = [
   {
+    vault: '大鲸鱼的记忆篇/会计思考文章集/我给国家大基金算个账.md',
+    slug: 'big-fund',
+    title: '我给国家大基金算个账',
+    date: '2026-05-29',
+    desc: '三期基金、超千亿持仓、退出时间表——大基金的收益账与退出压力',
+    tag: '投资分析',
+  },
+  {
     vault: '大鲸鱼的记忆篇/会计思考文章集/文学史上的会计.md',
     slug: 'lit-accountants',
     title: '文学史上的会计',
