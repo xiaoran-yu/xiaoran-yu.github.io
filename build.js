@@ -20,7 +20,7 @@ const ARTICLES = [
     tag: '跨学科',
   },
   {
-    vault: '大鲸鱼的记忆篇/让我们回归现金流.md',
+    vault: '大鲸鱼的记忆篇/会计思考文章集/让我们回归现金流.md',
     slug: 'cashflow',
     title: '让我们回归现金流',
     date: '2026-05-25',

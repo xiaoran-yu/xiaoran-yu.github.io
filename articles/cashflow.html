@@ -2,31 +2,99 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="利润可以是观点，现金流才是事实。">
-<title>让我们回归现金流 · 于潇然</title>
+<meta name="description" content="让我们回归现金流 · 大鲸鱼">
+<title>让我们回归现金流 · 大鲸鱼</title>
 <style>
-  :root { --bg:#FBF8F4; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; }
+  :root { --bg:#F2EBE1; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; --accent:#3D1E2A; --sidebar-w:200px; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:17px; line-height:1.85; max-width:720px; margin:0 auto; padding:60px 24px; }
+  body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:17px; line-height:1.85; display:flex; min-height:100vh; }
+  .sidebar { width:var(--sidebar-w); background:var(--accent); position:fixed; top:0; left:0; bottom:0; display:flex; flex-direction:column; padding:0; }
+  .sidebar-logo { padding:28px 20px; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .sidebar-logo a { color:#fff; text-decoration:none; font-size:20px; font-weight:700; letter-spacing:1px; }
+  .sidebar-footer { margin-top:auto; padding:20px; border-top:1px solid rgba(255,255,255,0.12); font-size:13px; color:rgba(255,255,255,0.4); }
+  .main { margin-left:var(--sidebar-w); flex:1; max-width:760px; padding:60px 36px 80px 48px; }
   header { margin-bottom:40px; }
-  header a { color:var(--text2); text-decoration:none; font-size:14px; }
+  header a { color:var(--text2); text-decoration:none; font-size:15px; font-weight:500; }
   header a:hover { color:#3B82F6; }
-  h1 { font-size:36px; font-weight:700; margin:20px 0 8px; letter-spacing:-0.5px; }
-  .date { font-size:14px; color:var(--text2); }
+  h1 { font-size:38px; font-weight:700; margin:20px 0 8px; letter-spacing:-0.5px; }
+  .date { font-size:15px; color:var(--text2); }
   article { margin-top:36px; }
-  article h2 { font-size:22px; font-weight:700; margin:40px 0 12px; }
-  article p { margin:14px 0; }
-  footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); font-size:13px; color:var(--text2); }
-  footer a { color:#3B82F6; text-decoration:none; }
-  @media (max-width:600px) { body { padding:32px 16px; } h1 { font-size:28px; } }
+  article h2 { font-size:24px; font-weight:700; margin:44px 0 14px; }
+  article h3 { font-size:19px; font-weight:700; margin:30px 0 10px; }
+  article p { margin:16px 0; }
+  article ul, article ol { margin:14px 0; padding-left:24px; }
+  article li { margin:8px 0; }
+  article strong { font-weight:700; }
+  article em { font-style:italic; }
+  article blockquote { border-left:3px solid var(--accent); margin:20px 0; padding:10px 22px; color:var(--text2); font-size:16px; background:#fff; border-radius:0 8px 8px 0; }
+  article code { background:#F1F5F9; padding:2px 6px; border-radius:4px; font-size:0.9em; }
+  article pre { background:#1E293B; color:#E2E8F0; padding:18px 22px; border-radius:12px; overflow-x:auto; font-size:14px; line-height:1.6; margin:18px 0; }
+  article pre code { background:transparent; padding:0; color:inherit; }
+  footer { margin-top:80px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.08); font-size:14px; color:var(--text2); }
+  footer a { color:var(--text2); text-decoration:none; }
+  footer a:hover { color:#3B82F6; }
+  @media (max-width:750px) { .sidebar { width:56px; } .sidebar-logo a { font-size:14px; } .sidebar-footer { display:none; } .main { margin-left:56px; padding:32px 18px 48px 28px; } h1 { font-size:28px; } }
 </style>
 </head>
 <body>
-<header><a href="../index.html">← 于潇然</a><h1>让我们回归现金流</h1><div class="date">2026 年 5 月 25 日</div></header>
+<div class="sidebar"><div class="sidebar-logo"><a href="../index.html">大鲸鱼</a></div><div class="sidebar-footer">&copy; 2026</div></div>
+<div class="main">
+<header><a href="../index.html">← 返回首页</a><h1>让我们回归现金流</h1><div class="date">2026-05-25</div></header>
 <article>
-<p>利润可以是观点，现金流才是事实。</p>
-<p>（全文待从 Obsidian 同步至网站）</p>
+<h2>让我们回归现金流</h2>
+
+<p>公元前3200年，苏美尔神庙的湿泥板上刻下最早的楔形文字，是个账本——记录了谷物的收支。</p>
+
+<p>人类发明文字，不是为诗歌与法律，是为了算下账。</p>
+
+<p>此后的四千余年，记账始终是朴素的流水账。直到大航海改变了这一切。</p>
+
+<p>15世纪，朴素的流水账，伴随着大航海时代的到来，升级成了复式记账。</p>
+
+<p>大航海改变了世界的版图，会计们在高船大炮的加持下，将交易分层分块阐述，形成了新的记账规则，它所解释的，是一套精密而复杂的资金与资本的记录与测算。</p>
+
+<p>1494年，卢卡·帕乔利在威尼斯出版了《算术、几何、比及比例概要》。</p>
+
+<p>复式记账催生了与以往不同的很多规则，这些规则里，我认为最关键的一条是权责发生制。时间的因素被考虑进来，人类计算得失的尺度里，多了一个维度。</p>
+
+<p>现金与应收被区分开来，收益的核算引入了公允价值，成本和费用是不同的名词代表了不同的利益流出方式，资产负债表出现了，报表时点的切分产生了对权责发生制的渴求......</p>
+
+<p>不过，任何精巧工具都有代价。</p>
+
+<p>随着经济日益复杂、会计准则层层叠加，"匹配"的空间越扩越大：收入何时确认、研发支出是否资本化、减值测试用什么假设......每一个具体的问题都值得大书特书，会计准则和制度解释层出不穷。</p>
+
+<p>报表使用者们越来越困惑。提给财务的最常见的问题是：你能不能告诉我一个准确的标准？</p>
+
+<p>回答是：不能。没有一个确定性的答案，每一个会计处理都像是一场推演，伴随着一大堆的前提假设、分析判断。</p>
+
+<p>迷雾一样的会计判断和分析，会计们很容易陷入自我满足中，严谨而细致的分析，看起来既专业又合法，会计的专业之墙越砌越高，外面的人看不到里面，里面的人也望不到外面的世界...</p>
+
+<p>所谓的专业判断，离现实世界很遥远。</p>
+
+<p>合法，不等于真实世界，它真正的用途，在于"可辩护"。</p>
+
+<p>以损益表为例，收入和利润可以被"专业判断"平滑和修饰，层层叠叠的分析，让报表使用者们难以穿透。</p>
+
+<p>时间来到2026年，我们会深刻的感觉到行业与世界的差距越来越大。</p>
+
+<p>比如说上市公司的年报披露时间，是次年的4月30日。虽然大部分的会计还是要赶时间赶的焦头烂额，但是平心静气想一想，天啊，第二年都过去1/3了，投资人才能看到去年的报表。</p>
+
+<p>我觉得只能用“龟速”来形容。当然了，不排除有的公司披露时间早一些。但是在这个AI爆发的年代，同行们真的需要好好想一想，会计信息的有用性的基石到底是什么？</p>
+
+<p>有用性的首要条件，当然是及时性。再精准的数据信息，如果披露时间过长，也会变得毫无用处。</p>
+
+<p>那么怎么才能做到又快又好呢? 我自己的回答是：“让我们回归到现金流”</p>
+
+<p>一切无法变成现金的业务都是在耍流氓。</p>
+
+<p>唯有现金流是真实的，唯有现金流值得我们大书特书。</p>
+
+<p>世界是一个巨大的圆环。人类的财务核算诞生于泥板上的流水账，历经了世界变化的沧海桑田。现在，或许我们需要重新回到起点——重新建立现金流主表。我们可以不放弃利润、不放弃资产负债，但是，最重要的是现金。利润告诉我们企业想做到什么，现金告诉我们实际发生了什么。</p>
+
+<p>那个苏美尔记录官刻下的第一行字——"收到大麦XXX筐"——4500年后依然有效。利润是一个观点，现金是一个事实。</p>
+
 </article>
-<footer>&copy; 2026 于潇然 · <a href="../index.html">返回首页</a></footer>
+<footer>&copy; 2026 大鲸鱼</footer>
+</div>
 </body>
 </html>
