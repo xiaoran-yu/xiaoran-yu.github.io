@@ -46,7 +46,7 @@ const TEMPLATE = (title, date, body, slug) => `<!DOCTYPE html>
 <style>
   :root { --bg:#0B1120; --text:#F1F5F9; --text2:#94A3B8; --border:rgba(148,163,184,0.1); --accent:#3D1E2A; --sidebar-w:220px; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:18px; line-height:1.9; display:flex; min-height:100vh; }
+  body { font-family:'幼圆','YouYuan','Source Han Sans CN','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:19px; line-height:1.95; display:flex; min-height:100vh; }
   .sidebar { width:var(--sidebar-w); background:linear-gradient(180deg,rgba(18,25,45,0.97),rgba(22,32,58,0.97),rgba(18,25,45,0.97)); position:fixed; top:0; left:0; bottom:0; display:flex; flex-direction:column; border-right:1px solid var(--border); }
   .sidebar-logo { padding:28px 24px; border-bottom:1px solid var(--border); }
   .sidebar-logo a { color:#fff; text-decoration:none; font-size:20px; font-weight:700; letter-spacing:1px; background:linear-gradient(90deg,#4CAF50,#FFEB3B,#F44336,#9C27B0,#3F51B5,#00BCD4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
