@@ -5,11 +5,14 @@
 <meta name="description" content="文学史上的会计 · 大鲸鱼">
 <title>文学史上的会计 · 大鲸鱼</title>
 <style>
-  :root { --bg:#FBF8F4; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; --accent:#3D1E2A; }
+  :root { --bg:#F2EBE1; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; --accent:#3D1E2A; --sidebar-w:200px; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:17px; line-height:1.85; display:flex; min-height:100vh; }
-  .accent-bar { width:6px; background:var(--accent); position:fixed; top:0; left:0; bottom:0; }
-  .main { margin-left:6px; flex:1; max-width:760px; padding:60px 36px 80px 48px; }
+  .sidebar { width:var(--sidebar-w); background:var(--accent); position:fixed; top:0; left:0; bottom:0; display:flex; flex-direction:column; padding:0; }
+  .sidebar-logo { padding:28px 20px; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .sidebar-logo a { color:#fff; text-decoration:none; font-size:20px; font-weight:700; letter-spacing:1px; }
+  .sidebar-footer { margin-top:auto; padding:20px; border-top:1px solid rgba(255,255,255,0.12); font-size:13px; color:rgba(255,255,255,0.4); }
+  .main { margin-left:var(--sidebar-w); flex:1; max-width:760px; padding:60px 36px 80px 48px; }
   header { margin-bottom:40px; }
   header a { color:var(--text2); text-decoration:none; font-size:15px; font-weight:500; }
   header a:hover { color:#3B82F6; }
@@ -27,16 +30,16 @@
   article code { background:#F1F5F9; padding:2px 6px; border-radius:4px; font-size:0.9em; }
   article pre { background:#1E293B; color:#E2E8F0; padding:18px 22px; border-radius:12px; overflow-x:auto; font-size:14px; line-height:1.6; margin:18px 0; }
   article pre code { background:transparent; padding:0; color:inherit; }
-  footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); font-size:14px; color:var(--text2); }
-  footer a { color:var(--text2); text-decoration:none; border-bottom:1px solid var(--border); }
+  footer { margin-top:80px; padding-top:24px; border-top:1px solid rgba(0,0,0,0.08); font-size:14px; color:var(--text2); }
+  footer a { color:var(--text2); text-decoration:none; }
   footer a:hover { color:#3B82F6; }
-  @media (max-width:660px) { .accent-bar { width:4px; } .main { margin-left:4px; padding:32px 18px 48px 28px; } h1 { font-size:28px; } }
+  @media (max-width:750px) { .sidebar { width:56px; } .sidebar-logo a { font-size:14px; } .sidebar-footer { display:none; } .main { margin-left:56px; padding:32px 18px 48px 28px; } h1 { font-size:28px; } }
 </style>
 </head>
 <body>
-<div class="accent-bar"></div>
+<div class="sidebar"><div class="sidebar-logo"><a href="../index.html">大鲸鱼</a></div><div class="sidebar-footer">&copy; 2026</div></div>
 <div class="main">
-<header><a href="../index.html">← 大鲸鱼</a><h1>文学史上的会计</h1><div class="date">2026-05-28</div></header>
+<header><a href="../index.html">← 返回首页</a><h1>文学史上的会计</h1><div class="date">2026-05-28</div></header>
 <article>
 <h2>文学史上的会计</h2>
 
@@ -81,7 +84,7 @@
 <p><em>2026 年 5 月 28 日整理</em></p>
 
 </article>
-<footer>&copy; 2026 大鲸鱼 · <a href="../index.html">返回首页</a></footer>
+<footer>&copy; 2026 大鲸鱼</footer>
 </div>
 </body>
 </html>

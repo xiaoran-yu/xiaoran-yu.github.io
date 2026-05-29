@@ -2,155 +2,317 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="大鲸鱼 · 于潇然的个人网站。财务尽调、投资分析、会计思考。">
-<title>大鲸鱼 · 于潇然</title>
+<meta name="description" content="大鲸鱼 · 于潇然。投资尽调 · 财务建模 · 专业会计师。">
+<title>大鲸鱼</title>
 <style>
   :root {
-    --bg: #FBF8F4;
-    --text: #1E293B;
-    --text2: #64748B;
-    --border: #E2E8F0;
-    --accent: #3D1E2A;
-    --radius: 18px;
-    --shadow: 0 4px 20px rgba(0,0,0,0.08);
-    --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+    --rainbow: linear-gradient(90deg, #4CAF50 0%, #8BC34A 14%, #FFEB3B 28%, #FF9800 42%, #F44336 56%, #E91E63 70%, #9C27B0 77%, #3F51B5 84%, #2196F3 91%, #00BCD4 100%);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
-    font-family: 'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif;
-    background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.85;
-    display: flex; min-height: 100vh;
+    font-family: 'Source Han Sans CN','Noto Sans SC','PingFang SC',sans-serif;
+    font-size: 18px; line-height: 1.9; display: flex; min-height: 100vh;
+    background: #0B1120; color: #E8ECF4;
   }
 
-  /* Left accent bar */
-  .accent-bar {
-    width: 6px; background: var(--accent); position: fixed; top: 0; left: 0; bottom: 0; z-index: 10;
+  /* Sidebar — glass + warm glow */
+  .sidebar {
+    width: 220px; position: fixed; top:0; left:0; bottom:0; z-index: 100;
+    background: linear-gradient(180deg, rgba(18,25,45,0.97) 0%, rgba(22,32,58,0.97) 50%, rgba(18,25,45,0.97) 100%);
+    backdrop-filter: blur(20px); border-right: 1px solid rgba(148,163,184,0.1);
+    display: flex; flex-direction: column; overflow: hidden;
   }
+  .sidebar::before {
+    content: ''; position: absolute; top: -30%; left: -30%; width: 160%; height: 160%;
+    background:
+      radial-gradient(circle 100px at 25% 20%, rgba(56,189,248,0.08) 0%, transparent 50%),
+      radial-gradient(circle 80px at 70% 50%, rgba(168,85,247,0.06) 0%, transparent 50%),
+      radial-gradient(circle 90px at 30% 80%, rgba(251,146,60,0.05) 0%, transparent 50%);
+    animation: glow 10s ease-in-out infinite alternate;
+  }
+  @keyframes glow { 0% { transform:translate(0,0) } 100% { transform:translate(15px,-8px) } }
+  .sidebar-content { position:relative; z-index:1; display:flex; flex-direction:column; height:100%; }
+  .sidebar-logo { padding: 28px 24px; border-bottom: 1px solid rgba(148,163,184,0.08); }
+  .sidebar-logo .name { font-size:22px; font-weight:700; letter-spacing:1px; background:var(--rainbow); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .sidebar-logo .sub { font-size:11px; color:rgba(255,255,255,0.3); margin-top:4px; letter-spacing:2px; }
+  .sidebar-nav { flex:1; padding:20px 14px; display:flex; flex-direction:column; gap:2px; }
+  .sidebar-nav a {
+    display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:10px;
+    font-size:17px; color:rgba(255,255,255,0.45); text-decoration:none; transition:all 0.3s; position:relative;
+  }
+  .sidebar-nav a::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:3px; height:0; background:var(--rainbow); border-radius:0 3px 3px 0; transition:height 0.3s; }
+  .sidebar-nav a:hover { color:#fff; background:rgba(255,255,255,0.04); }
+  .sidebar-nav a:hover::before { height:24px; }
+  .sidebar-nav a.active { color:#fff; background:rgba(56,189,248,0.1); font-weight:600; }
+  .sidebar-nav a.active::before { height:28px; }
+  .sidebar-nav .nav-icon { font-size:16px; width:20px; text-align:center; }
+  .sidebar-footer { padding:20px 24px; border-top:1px solid rgba(148,163,184,0.08); font-size:13px; color:rgba(255,255,255,0.25); }
+  .sidebar-footer a { color:rgba(255,255,255,0.35); text-decoration:none; }
+  .sidebar-footer a:hover { color:#fff; }
 
-  /* Main content */
-  .main {
-    margin-left: 6px; flex: 1; max-width: 820px; padding: 60px 36px 80px 48px;
-  }
+  /* Main */
+  .main-wrap { margin-left:220px; flex:1; overflow-x:hidden; }
 
-  header { margin-bottom: 48px; }
-  header h1 { font-size: 44px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
-  header .tagline { font-size: 16px; color: var(--text2); margin-top: 8px; line-height: 1.6; }
-  nav { margin-top: 24px; display: flex; gap: 20px; }
-  nav a { color: var(--text2); text-decoration: none; font-size: 15px; font-weight: 500; transition: color .2s; }
-  nav a:hover { color: #3B82F6; }
-  nav a.active { color: var(--accent); font-weight: 700; }
+  /* Hero — compact tech */
+  .hero {
+    position:relative; padding:60px 60px 50px; text-align:center;
+    background:
+      linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px),
+      radial-gradient(ellipse 500px 250px at 50% -10%, rgba(56,189,248,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 350px 200px at 20% 80%, rgba(168,85,247,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 300px 180px at 80% 80%, rgba(251,146,60,0.04) 0%, transparent 60%),
+      #0B1120;
+    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%;
+    overflow: hidden;
+  }
+  .hero .glow-line { position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--rainbow); opacity:0.5; }
+  .hero-content { position:relative; z-index:2; }
+  .hero h1 {
+    font-size:56px; font-weight:700; line-height:1.1; letter-spacing:3px;
+    background:var(--rainbow); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .hero .tagline { font-size:20px; color:#CBD5E1; margin-top:10px; }
+  .hero .desc { font-size:17px; color:#94A3B8; margin-top:6px; max-width:640px; margin-left:auto; margin-right:auto; }
+  .hero .cta {
+    display:inline-block; margin-top:20px; padding:12px 32px; border-radius:50px;
+    background:linear-gradient(#0B1120,#0B1120) padding-box, var(--rainbow) border-box;
+    border:1.5px solid transparent; color:#E8ECF4; font-size:15px; text-decoration:none; transition:all 0.3s; letter-spacing:1px;
+  }
+  .hero .cta:hover { background:var(--rainbow); color:#0B1120; transform:translateY(-2px); box-shadow:0 0 36px rgba(56,189,248,0.25); }
+  .hero .social { display:flex; justify-content:center; gap:24px; margin-top:18px; }
+  .hero .social a { color:#94A3B8; font-size:14px; text-decoration:none; transition:color 0.3s; }
+  .hero .social a:hover { color:#E8ECF4; }
 
-  /* Section */
-  .section-title {
-    font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
-    color: var(--text2); margin: 48px 0 20px; font-weight: 600;
-  }
+  /* Content */
+  .content { max-width:1300px; margin:0 auto; padding:0 60px 80px; }
+  .section-title { font-size:14px; text-transform:uppercase; letter-spacing:3px; color:#64748B; margin:56px 0 24px; font-weight:600; }
 
-  /* Article cards */
-  .article-grid { display: flex; flex-direction: column; gap: 16px; }
-  .article-card {
-    display: block; text-decoration: none; color: inherit;
-    background: #fff; border-radius: var(--radius); padding: 24px 28px;
-    box-shadow: var(--shadow); transition: all 300ms ease;
-    border-left: 5px solid transparent;
-    position: relative; overflow: hidden;
+  /* Modules */
+  .modules { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+  .module-card {
+    border-radius:20px; padding:36px 32px; position:relative; overflow:hidden;
+    min-height:340px; transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    cursor:pointer; opacity:0; transform:translateY(24px);
+    border:1px solid;
   }
-  .article-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-  .article-card:nth-child(1) { border-left-color: #F59E0B; }
-  .article-card:nth-child(2) { border-left-color: #EC4899; }
-  .article-card:nth-child(3) { border-left-color: #10B981; }
-  .article-card:nth-child(4) { border-left-color: #3B82F6; }
-  .article-card:nth-child(5) { border-left-color: #8B5CF6; }
+  .module-card.visible { opacity:1; transform:translateY(0); }
+  .module-card:hover { transform:translateY(-6px); }
+  .module-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius:20px 20px 0 0; }
 
-  .article-card .card-title {
-    font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px;
-  }
-  .article-card .card-desc {
-    font-size: 14px; color: var(--text2); line-height: 1.6;
-  }
-  .article-card .card-meta {
-    display: flex; align-items: center; gap: 10px; margin-top: 12px;
-  }
-  .article-card .card-date { font-size: 13px; color: var(--text2); }
-  .article-card .card-tag {
-    display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 10px; font-weight: 600;
-  }
-  .tag-essay { background: #FCE7F3; color: #9D174D; }
-  .tag-finance { background: #D1FAE5; color: #065F46; }
-  .tag-fdd { background: #DBEAFE; color: #1E40AF; }
-  .tag-model { background: #FEF3C7; color: #92400E; }
+  /* M1 — Green/warm */
+  .module-card.m1 { background:linear-gradient(160deg, #0D1A0F 0%, #0F1D12 40%, #0A1210 100%); border-color:rgba(76,175,80,0.15); }
+  .module-card.m1::before { background:linear-gradient(90deg, #4CAF50, #8BC34A, #FFEB3B); }
+  .module-card.m1:hover { background:linear-gradient(160deg, #0F1F11 0%, #122316 40%, #0C1412 100%); border-color:rgba(76,175,80,0.3); box-shadow:0 0 32px rgba(76,175,80,0.12); }
+  .module-card.m1 .num { color:#81C784; }
+  .module-card.m1 h2 { background:linear-gradient(90deg, #4CAF50, #8BC34A, #FFEB3B); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .module-card.m1 .sep { background:#4CAF50; }
+  .module-card.m1 .items li::before { color:#4CAF50; }
+  .module-card.m1 .tag { background:rgba(76,175,80,0.12); color:#81C784; }
+  .module-card.m1 .arrow { color:#4CAF50; }
+
+  /* M2 — Blue */
+  .module-card.m2 { background:linear-gradient(160deg, #0A1220 0%, #0D1628 40%, #0B101D 100%); border-color:rgba(33,150,243,0.15); }
+  .module-card.m2::before { background:linear-gradient(90deg, #3F51B5, #2196F3, #00BCD4); }
+  .module-card.m2:hover { background:linear-gradient(160deg, #0C1426 0%, #0F1A30 40%, #0D1222 100%); border-color:rgba(33,150,243,0.3); box-shadow:0 0 32px rgba(33,150,243,0.12); }
+  .module-card.m2 .num { color:#64B5F6; }
+  .module-card.m2 h2 { background:linear-gradient(90deg, #3F51B5, #2196F3, #00BCD4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .module-card.m2 .sep { background:#2196F3; }
+  .module-card.m2 .items li::before { color:#2196F3; }
+  .module-card.m2 .tag { background:rgba(33,150,243,0.12); color:#64B5F6; }
+  .module-card.m2 .arrow { color:#2196F3; }
+
+  /* M3 — Purple */
+  .module-card.m3 { background:linear-gradient(160deg, #140B1A 0%, #180E20 40%, #100B16 100%); border-color:rgba(156,39,176,0.15); }
+  .module-card.m3::before { background:linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5); }
+  .module-card.m3:hover { background:linear-gradient(160deg, #180D20 0%, #1C1026 40%, #120D1A 100%); border-color:rgba(156,39,176,0.3); box-shadow:0 0 32px rgba(156,39,176,0.12); }
+  .module-card.m3 .num { color:#CE93D8; }
+  .module-card.m3 h2 { background:linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .module-card.m3 .sep { background:#9C27B0; }
+  .module-card.m3 .items li::before { color:#9C27B0; }
+  .module-card.m3 .tag { background:rgba(156,39,176,0.12); color:#CE93D8; }
+  .module-card.m3 .arrow { color:#9C27B0; }
+
+  /* M4 — Orange/warm */
+  .module-card.m4 { background:linear-gradient(160deg, #1A1008 0%, #1F140B 40%, #120E08 100%); border-color:rgba(255,152,0,0.15); }
+  .module-card.m4::before { background:linear-gradient(90deg, #FFEB3B, #FF9800, #F44336); }
+  .module-card.m4:hover { background:linear-gradient(160deg, #1F140B 0%, #24180E 40%, #15100A 100%); border-color:rgba(255,152,0,0.3); box-shadow:0 0 32px rgba(255,152,0,0.12); }
+  .module-card.m4 .num { color:#FFB74D; }
+  .module-card.m4 h2 { background:linear-gradient(90deg, #FFEB3B, #FF9800, #F44336); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .module-card.m4 .sep { background:#FF9800; }
+  .module-card.m4 .items li::before { color:#FF9800; }
+  .module-card.m4 .tag { background:rgba(255,152,0,0.12); color:#FFB74D; }
+  .module-card.m4 .arrow { color:#FF9800; }
+
+  /* Shared card styles */
+  .module-card .num { font-size:14px; letter-spacing:4px; margin-bottom:14px; font-weight:700; }
+  .module-card h2 { font-size:28px; font-weight:700; margin-bottom:6px; }
+  .module-card .sep { width:70px; height:2px; margin:14px 0; }
+  .module-card .desc { font-size:17px; color:#CBD5E1; line-height:1.9; margin-bottom:18px; }
+  .module-card .items { list-style:none; padding:0; }
+  .module-card .items li { font-size:16px; color:#94A3B8; padding:6px 0; }
+  .module-card .items li::before { content:'· '; margin-right:6px; font-weight:700; }
+  .module-card .tag-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+  .tag { display:inline-block; font-size:13px; padding:5px 12px; border-radius:12px; font-weight:600; }
+  .module-card .arrow { position:absolute; bottom:32px; right:32px; font-size:22px; transition:transform 0.3s; }
+  .module-card:hover .arrow { transform:translateX(6px); }
 
   /* About */
-  .about-card {
-    background: #fff; border-radius: var(--radius); padding: 28px 32px;
-    box-shadow: var(--shadow); border-left: 5px solid var(--accent);
-    font-size: 15px; color: var(--text2); line-height: 1.9;
+  .about-inner {
+    background:linear-gradient(160deg, #111827 0%, #161E30 50%, #111827 100%);
+    border:1px solid rgba(148,163,184,0.1); border-radius:20px;
+    padding:40px 44px; display:flex; gap:48px; align-items:flex-start;
+    opacity:0; transform:translateY(24px); transition:all 0.6s ease-out;
   }
-  .about-card strong { color: var(--text); }
+  .about-inner.visible { opacity:1; transform:translateY(0); }
+  .about-inner h3 { font-size:22px; font-weight:700; color:#F1F5F9; margin-bottom:10px; }
+  .about-inner p { font-size:17px; color:#CBD5E1; line-height:2; flex:1; }
 
-  footer {
-    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
-    font-size: 13px; color: var(--text2); line-height: 1.8;
+  /* Footer */
+  footer { border-top:1px solid rgba(148,163,184,0.08); padding:44px 60px; text-align:center; }
+  footer .flinks { display:flex; justify-content:center; gap:24px; margin-bottom:18px; }
+  footer .flinks a { color:#94A3B8; text-decoration:none; font-size:16px; transition:color 0.3s; }
+  footer .flinks a:hover { color:#F1F5F9; }
+  footer .copy { font-size:14px; color:#64748B; }
+
+  @media (max-width:1023px) {
+    .sidebar { width:64px; }
+    .sidebar-logo .name, .sidebar-logo .sub, .sidebar-nav a span, .sidebar-footer { display:none; }
+    .sidebar-nav a { justify-content:center; padding:14px; }
+    .main-wrap { margin-left:64px; }
+    .hero { padding:50px 32px 40px; }
+    .hero h1 { font-size:42px; }
+    .modules { grid-template-columns:1fr 1fr; gap:24px; }
+    .content { padding:0 32px 60px; }
   }
-  footer a { color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border); }
-  footer a:hover { color: #3B82F6; }
-
-  @media (max-width: 660px) {
-    .accent-bar { width: 4px; }
-    .main { margin-left: 4px; padding: 32px 18px 48px 28px; }
-    header h1 { font-size: 32px; }
-    .article-card { padding: 18px 20px; }
+  @media (max-width:767px) {
+    .sidebar { display:none; }
+    .main-wrap { margin-left:0; }
+    .hero { padding:50px 20px 36px; }
+    .hero h1 { font-size:34px; }
+    .modules { grid-template-columns:1fr; gap:20px; }
+    .content { padding:0 16px 48px; }
+    .about-inner { flex-direction:column; gap:20px; padding:28px; }
   }
 </style>
 </head>
 <body>
 
-<div class="accent-bar"></div>
+<aside class="sidebar">
+  <div class="sidebar-content">
+    <div class="sidebar-logo"><div class="name">大鲸鱼</div><div class="sub">YU XIAORAN</div></div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active"><span class="nav-icon">◆</span><span>首页</span></a>
+      <a href="#modules"><span class="nav-icon">◇</span><span>专业领域</span></a>
+      <a href="#about"><span class="nav-icon">○</span><span>关于</span></a>
+      <a href="https://github.com/xiaoran-yu"><span class="nav-icon">⬡</span><span>GitHub</span></a>
+    </nav>
+    <div class="sidebar-footer">© 2026 大鲸鱼</div>
+  </div>
+</aside>
 
-<div class="main">
+<div class="main-wrap">
 
-<header>
-  <h1>大鲸鱼</h1>
-  <p class="tagline">于潇然的个人网站。<br>私募股权实务 · 投资分析 · 会计跨学科思考。</p>
-  <nav>
-    <a href="/" class="active">文章</a>
-    <a href="#about">关于</a>
-    <a href="https://github.com/xiaoran-yu" target="_blank">GitHub</a>
-  </nav>
-</header>
-
-<div class="section-title">文章</div>
-<div class="article-grid">
-  <a href="articles/lit-accountants.html" class="article-card">
-    <div class="card-title">文学史上的会计</div>
-    <div class="card-desc">虚构作品中的算账人——固定类型、跨文化一致、不是写会计而是借用会计</div>
-    <div class="card-meta">
-      <span class="card-date">2026-05-28</span>
-      <span class="card-tag tag-essay">跨学科</span>
+<section class="hero">
+  <div class="glow-line"></div>
+  <div class="hero-content">
+    <h1>大 鲸 鱼</h1>
+    <p class="tagline">投资尽调 · 财务建模 · 专业会计师</p>
+    <p class="desc">深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。</p>
+    <a href="#modules" class="cta">探 索 专 业 领 域</a>
+    <div class="social">
+      <a href="mailto:13911773853@139.com">13911773853@139.com</a>
+      <a href="https://github.com/xiaoran-yu">GitHub</a>
     </div>
-  </a>
-  <a href="articles/rd-capitalization.html" class="article-card">
-    <div class="card-title">研发费用化后作价入股：一个会计矛盾</div>
-    <div class="card-desc">费用化的研发支出，能否在出资时&quot;复活&quot;为资产？</div>
-    <div class="card-meta">
-      <span class="card-date">2026-05-22</span>
-      <span class="card-tag tag-fdd">会计准则</span>
-    </div>
-  </a>
+  </div>
+</section>
+
+<div class="content">
+
+<div class="section-title" id="modules">· 专业领域 ·</div>
+<div class="modules">
+  <div class="module-card m1">
+    <div class="num">01</div>
+    <h2>中国财务尽调概览</h2>
+    <div class="sep"></div>
+    <p class="desc">涵盖外商投资、并购重组、IPO财务核查等尽调模板与方法论。</p>
+    <ul class="items">
+      <li>尽调清单标准化模板（资产、负债、收入、成本五维度）</li>
+      <li>财务异常指标识别与预警模型</li>
+      <li>历史财务数据调整与归一化处理</li>
+      <li>可比公司对标分析框架</li>
+      <li>现金流折现法（DCF）与相对估值联动</li>
+    </ul>
+    <div class="tag-row"><span class="tag">买方尽调</span><span class="tag">IPO核查</span><span class="tag">并购重组</span></div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="module-card m2">
+    <div class="num">02</div>
+    <h2>中国大陆及香港会计及监管规则汇总</h2>
+    <div class="sep"></div>
+    <p class="desc">汇总CAS / IFRS / HKFRS核心差异，提供监管规则速查。</p>
+    <ul class="items">
+      <li>CAS vs HKFRS vs IFRS 核心差异对照表</li>
+      <li>收入确认（CAS 14 / IFRS 15）差异详解</li>
+      <li>租赁准则（CAS 21 / IFRS 16）对比分析</li>
+      <li>金融工具准则（CAS 22/23/24 vs IFRS 9）</li>
+      <li>A股 / H股上市监管规则与披露要求</li>
+    </ul>
+    <div class="tag-row"><span class="tag">CAS</span><span class="tag">HKFRS</span><span class="tag">IFRS</span><span class="tag">上市规则</span></div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="module-card m3">
+    <div class="num">03</div>
+    <h2>财务投资建模</h2>
+    <div class="sep"></div>
+    <p class="desc">DCF、LBO、并购模型、敏感性分析等标准化财务建模模板。</p>
+    <ul class="items">
+      <li>DCF 自由现金流折现模型（含 WACC 自动计算）</li>
+      <li>LBO 杠杆收购模型（Debt Schedule 自动生成）</li>
+      <li>并购协同效应分析模型</li>
+      <li>单因素 / 双因素敏感性分析表</li>
+      <li>投资退出 IRR 测算与情景模拟</li>
+    </ul>
+    <div class="tag-row"><span class="tag">DCF</span><span class="tag">LBO</span><span class="tag">敏感性分析</span><span class="tag">IRR</span></div>
+    <div class="arrow">→</div>
+  </div>
+  <div class="module-card m4">
+    <div class="num">04</div>
+    <h2>会计师思考日记</h2>
+    <div class="sep"></div>
+    <p class="desc">投资尽调中的专业思考、案例复盘、行业洞察与职业成长感悟。</p>
+    <ul class="items">
+      <li>项目复盘：从制造业并购看资产负债表调整</li>
+      <li>会计准则解析：新租赁准则对轻资产公司的影响</li>
+      <li>投资思考：为何净利润不是评估互联网公司的指标</li>
+      <li>行业洞察：半导体行业财务特征与估值逻辑</li>
+      <li>职业成长：从审计到投资，我在转型中学到的三件事</li>
+    </ul>
+    <div class="tag-row"><span class="tag">案例复盘</span><span class="tag">行业洞察</span><span class="tag">职业思考</span></div>
+    <div class="arrow">→</div>
+  </div>
 </div>
 
-<div class="section-title" id="about">关于</div>
-<div class="about-card">
-  <strong>于潇然</strong>，财务专家。审计尽调、上市公司CFO、金融投资管理经验。<br>
-  目前在弘毅集团负责财务尽调及投资分析。关注私募股权尽调方法论、投资模型构建、会计准则在交易中的应用。<br>
-  业余写会计跨学科阅读——文学、历史、哲学中与"算账"相关的片段。
+<div class="section-title" id="about">· 关于 ·</div>
+<div class="about-inner">
+  <div style="min-width:220px">
+    <h3>于潇然</h3>
+    <p style="color:#94A3B8;font-size:16px">四大合伙人 · 上市公司CFO<br>私募股权基金合伙人 · 北京</p>
+  </div>
+  <p>深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。专精中国及香港会计准则下的交易架构设计、财务模型审阅与IPO规范辅导。相信数字背后的商业实质，相信会计的尽头是专业判断。</p>
 </div>
 
 <footer>
-  &copy; 2026 大鲸鱼 · 本站为独立站点，内容原创。<br>
-  由 Obsidian 编写 · GitHub Pages 托管
+  <div class="flinks"><a href="mailto:13911773853@139.com">13911773853@139.com</a><a href="https://github.com/xiaoran-yu">GitHub</a></div>
+  <p class="copy">&copy; 2026 大鲸鱼 · 于潇然</p>
 </footer>
 
-</div>
+</div></div>
+
+<script>
+const observer = new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.12});
+document.querySelectorAll('.module-card,.about-inner').forEach(el=>observer.observe(el));
+setTimeout(()=>{document.querySelectorAll('.module-card').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),i*120)})},400);
+</script>
 </body>
 </html>
