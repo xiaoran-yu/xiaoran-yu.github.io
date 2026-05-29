@@ -17,6 +17,7 @@ const ARTICLES = [
     title: '文学史上的会计',
     date: '2026-05-28',
     desc: '虚构作品中的算账人——固定类型、跨文化一致、不是写会计而是借用会计',
+    tag: '跨学科',
   },
   {
     vault: '大鲸鱼的记忆篇/让我们回归现金流.md',
@@ -24,6 +25,7 @@ const ARTICLES = [
     title: '让我们回归现金流',
     date: '2026-05-25',
     desc: '利润可以是观点，现金流才是事实',
+    tag: '财务分析',
   },
   {
     vault: '专业知识大集锦/0.一些实务问题/研发支出费用化后作价入股的会计分析.md',
@@ -31,6 +33,7 @@ const ARTICLES = [
     title: '研发费用化后作价入股：一个会计矛盾',
     date: '2026-05-22',
     desc: '费用化的研发支出，能否在出资时"复活"为资产？',
+    tag: '会计准则',
   },
 ];
 
@@ -38,40 +41,46 @@ const TEMPLATE = (title, date, body, slug) => `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="${escapeHtml(title)} · 于潇然">
-<title>${escapeHtml(title)} · 于潇然</title>
+<meta name="description" content="${escapeHtml(title)} · 大鲸鱼">
+<title>${escapeHtml(title)} · 大鲸鱼</title>
 <style>
-  :root { --bg:#FBF8F4; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; }
+  :root { --bg:#FBF8F4; --text:#1E293B; --text2:#64748B; --border:#E2E8F0; --accent:#3D1E2A; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:17px; line-height:1.85; max-width:720px; margin:0 auto; padding:60px 24px; }
+  body { font-family:'Source Han Sans CN','Noto Sans SC','PingFang SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); font-size:17px; line-height:1.85; display:flex; min-height:100vh; }
+  .accent-bar { width:6px; background:var(--accent); position:fixed; top:0; left:0; bottom:0; }
+  .main { margin-left:6px; flex:1; max-width:760px; padding:60px 36px 80px 48px; }
   header { margin-bottom:40px; }
-  header a { color:var(--text2); text-decoration:none; font-size:14px; }
+  header a { color:var(--text2); text-decoration:none; font-size:15px; font-weight:500; }
   header a:hover { color:#3B82F6; }
-  h1 { font-size:36px; font-weight:700; margin:20px 0 8px; letter-spacing:-0.5px; }
-  .date { font-size:14px; color:var(--text2); }
+  h1 { font-size:38px; font-weight:700; margin:20px 0 8px; letter-spacing:-0.5px; }
+  .date { font-size:15px; color:var(--text2); }
   article { margin-top:36px; }
-  article h2 { font-size:22px; font-weight:700; margin:40px 0 12px; }
-  article h3 { font-size:18px; font-weight:700; margin:28px 0 8px; }
-  article p { margin:14px 0; }
-  article ul, article ol { margin:12px 0; padding-left:24px; }
-  article li { margin:6px 0; }
+  article h2 { font-size:24px; font-weight:700; margin:44px 0 14px; }
+  article h3 { font-size:19px; font-weight:700; margin:30px 0 10px; }
+  article p { margin:16px 0; }
+  article ul, article ol { margin:14px 0; padding-left:24px; }
+  article li { margin:8px 0; }
   article strong { font-weight:700; }
   article em { font-style:italic; }
-  article blockquote { border-left:3px solid var(--border); margin:16px 0; padding:8px 20px; color:var(--text2); font-size:16px; }
+  article blockquote { border-left:3px solid var(--accent); margin:20px 0; padding:10px 22px; color:var(--text2); font-size:16px; background:#fff; border-radius:0 8px 8px 0; }
   article code { background:#F1F5F9; padding:2px 6px; border-radius:4px; font-size:0.9em; }
-  article pre { background:#1E293B; color:#E2E8F0; padding:16px 20px; border-radius:10px; overflow-x:auto; font-size:14px; line-height:1.6; margin:16px 0; }
+  article pre { background:#1E293B; color:#E2E8F0; padding:18px 22px; border-radius:12px; overflow-x:auto; font-size:14px; line-height:1.6; margin:18px 0; }
   article pre code { background:transparent; padding:0; color:inherit; }
-  footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); font-size:13px; color:var(--text2); }
-  footer a { color:#3B82F6; text-decoration:none; }
-  @media (max-width:600px) { body { padding:32px 16px; } h1 { font-size:28px; } }
+  footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); font-size:14px; color:var(--text2); }
+  footer a { color:var(--text2); text-decoration:none; border-bottom:1px solid var(--border); }
+  footer a:hover { color:#3B82F6; }
+  @media (max-width:660px) { .accent-bar { width:4px; } .main { margin-left:4px; padding:32px 18px 48px 28px; } h1 { font-size:28px; } }
 </style>
 </head>
 <body>
+<div class="accent-bar"></div>
+<div class="main">
 <header><a href="../index.html">← 大鲸鱼</a><h1>${escapeHtml(title)}</h1><div class="date">${date}</div></header>
 <article>
 ${body}
 </article>
-<footer>&copy; 2026 于潇然 · <a href="../index.html">返回首页</a></footer>
+<footer>&copy; 2026 大鲸鱼 · <a href="../index.html">返回首页</a></footer>
+</div>
 </body>
 </html>`;
 
@@ -146,18 +155,30 @@ function inlineMd(s) {
 
 // Build index page
 function buildIndex(articles) {
-  let items = articles.map(a => `
-  <a href="articles/${a.slug}.html" class="article-item">
-    <div><div class="title">${escapeHtml(a.title)}</div><div class="desc">${escapeHtml(a.desc)}</div></div>
-    <span class="meta">${a.date}</span>
-  </a>`).join('');
+  const tagMap = {
+    'lit-accountants': 'tag-essay',    '跨学科': 'tag-essay',
+    'cashflow': 'tag-finance',         '财务分析': 'tag-finance',
+    'rd-capitalization': 'tag-fdd',    '会计准则': 'tag-fdd',
+    'default': 'tag-model'
+  };
 
-  // Read existing index and replace article list
+  let items = articles.map((a, i) => {
+    let tag = a.tag || Object.keys(tagMap).find(k => a.slug.includes(k)) || 'default';
+    let tagClass = tagMap[tag] || tagMap['default'];
+    return `  <a href="articles/${a.slug}.html" class="article-card">
+    <div class="card-title">${escapeHtml(a.title)}</div>
+    <div class="card-desc">${escapeHtml(a.desc)}</div>
+    <div class="card-meta">
+      <span class="card-date">${a.date}</span>
+      <span class="card-tag ${tagClass}">${escapeHtml(tag)}</span>
+    </div>
+  </a>`;
+  }).join('\n');
+
   let index = fs.readFileSync(path.join(SITE, 'index.html'), 'utf8');
-  // Replace content between article-list start and next section-title
   index = index.replace(
-    /(<div class="article-list">)[\s\S]*?(<\/div>\s*\n\s*<div class="section-title")/,
-    '$1' + items + '\n</div>\n\n<div class="section-title"'
+    /(<div class="article-grid">)[\s\S]*?(<\/div>\s*\n\s*<div class="section-title" id="about")/,
+    '$1\n' + items + '\n</div>\n\n<div class="section-title" id="about"'
   );
   fs.writeFileSync(path.join(SITE, 'index.html'), index, 'utf8');
   console.log('  Updated index.html');
