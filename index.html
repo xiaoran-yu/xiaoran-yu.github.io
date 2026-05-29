@@ -157,6 +157,20 @@
   .module-card .arrow { position:absolute; bottom:32px; right:32px; font-size:22px; transition:transform 0.3s; }
   .module-card:hover .arrow { transform:translateX(6px); }
 
+  /* Article list */
+  .article-list { display:flex; flex-direction:column; gap:12px; }
+  .article-link {
+    display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+    padding:18px 22px; border-radius:14px; text-decoration:none;
+    background:rgba(255,255,255,0.02); border:1px solid rgba(148,163,184,0.08);
+    transition:all 0.3s;
+  }
+  .article-link:hover { background:rgba(56,189,248,0.04); border-color:rgba(56,189,248,0.2); }
+  .al-title { font-size:18px; font-weight:700; color:#F1F5F9; min-width:fit-content; }
+  .al-desc { font-size:15px; color:#94A3B8; flex:1; }
+  .al-date { font-size:13px; color:#64748B; white-space:nowrap; }
+  .article-link:hover .al-title { color:#60A5FA; }
+
   /* About */
   .about-inner {
     background:linear-gradient(160deg, #111827 0%, #161E30 50%, #111827 100%);
@@ -280,7 +294,7 @@
     <div class="num">04</div>
     <h2>会计师思考日记</h2>
     <div class="sep"></div>
-    <p class="desc">投资尽调中的专业思考、案例复盘、行业洞察与职业成长感悟。</p>
+    <p class="desc">专业思考、案例复盘、行业洞察与职业成长感悟。</p>
     <ul class="items">
       <li>项目复盘：从制造业并购看资产负债表调整</li>
       <li>会计准则解析：新租赁准则对轻资产公司的影响</li>
@@ -291,6 +305,19 @@
     <div class="tag-row"><span class="tag">案例复盘</span><span class="tag">行业洞察</span><span class="tag">职业思考</span></div>
     <div class="arrow">→</div>
   </div>
+</div>
+
+<div class="section-title">· 文章 ·</div>
+<div class="article-list">
+  <a href="articles/lit-accountants.html" class="article-link">
+    <span class="al-title">文学史上的会计</span><span class="al-desc">虚构作品中的算账人——固定类型、跨文化一致、不是写会计而是借用会计</span><span class="al-date">2026-05-28</span>
+  </a>
+  <a href="articles/cashflow.html" class="article-link">
+    <span class="al-title">让我们回归现金流</span><span class="al-desc">利润可以是观点，现金流才是事实</span><span class="al-date">2026-05-25</span>
+  </a>
+  <a href="articles/rd-capitalization.html" class="article-link">
+    <span class="al-title">研发费用化后作价入股：一个会计矛盾</span><span class="al-desc">费用化的研发支出，能否在出资时&quot;复活&quot;为资产？</span><span class="al-date">2026-05-22</span>
+  </a>
 </div>
 
 <div class="section-title" id="about">· 关于 ·</div>
