@@ -162,30 +162,22 @@ function inlineMd(s) {
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 }
 
-// Build index page
+// Build index page — update Module 4 article list
 function buildIndex(articles) {
-  const tagMap = {
-    'lit-accountants': 'tag-essay',    '跨学科': 'tag-essay',
-    'cashflow': 'tag-finance',         '财务分析': 'tag-finance',
-    'rd-capitalization': 'tag-fdd',    '会计准则': 'tag-fdd',
-    'default': 'tag-model'
-  };
-
-  let items = articles.map((a, i) => {
-    let tag = a.tag || Object.keys(tagMap).find(k => a.slug.includes(k)) || 'default';
-    let tagClass = tagMap[tag] || tagMap['default'];
-    return `  <a href="articles/${a.slug}.html" class="article-link">
-    <span class="al-title">${escapeHtml(a.title)}</span><span class="al-desc">${escapeHtml(a.desc)}</span><span class="al-date">${a.date}</span>
-  </a>`;
-  }).join('\n');
+  let items = articles.map(a =>
+    `      <li><a href="articles/${a.slug}.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">${escapeHtml(a.title)}</a> <span style="font-size:12px;color:#64748B">${a.date}</span></li>`
+  ).join('\n');
 
   let index = fs.readFileSync(path.join(SITE, 'index.html'), 'utf8');
+
+  // Replace content between <ul class="items"> in Module 4 and its closing </ul>
   index = index.replace(
-    /(<div class="article-list">)[\s\S]*?(<\/div>\s*\n\s*<div class="section-title" id="about")/,
-    '$1\n' + items + '\n</div>\n\n<div class="section-title" id="about"'
+    /(<ul class="items">)[\s\S]*?(<\/ul>\s*\n\s*<div class="tag-row">)/,
+    '$1\n' + items + '\n    $2'
   );
+
   fs.writeFileSync(path.join(SITE, 'index.html'), index, 'utf8');
-  console.log('  Updated index.html');
+  console.log('  Updated index.html (Module 4 articles)');
 }
 
 // Main
