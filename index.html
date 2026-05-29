@@ -57,6 +57,7 @@
   .hero {
     position:relative; padding:36px 48px 30px; text-align:center;
     background:
+      linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
       url('assets/hero-bg.png') center center / cover no-repeat;
     overflow: hidden;
   }
@@ -96,9 +97,9 @@
   .module-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius:20px 20px 0 0; }
 
   /* M1 — Green/warm */
-  .module-card.m1 { background:linear-gradient(160deg, #0D1A0F 0%, #0F1D12 40%, #0A1210 100%); border-color:rgba(76,175,80,0.15); }
+  .module-card.m1 { background:linear-gradient(160deg, #0A1F0E 0%, #0E2815 40%, #081C0D 100%); border-color:rgba(76,175,80,0.2); }
   .module-card.m1::before { background:linear-gradient(90deg, #4CAF50, #8BC34A, #FFEB3B); }
-  .module-card.m1:hover { background:linear-gradient(160deg, #0F1F11 0%, #122316 40%, #0C1412 100%); border-color:rgba(76,175,80,0.3); box-shadow:0 0 32px rgba(76,175,80,0.12); }
+  .module-card.m1:hover { background:linear-gradient(160deg, #0E2815 0%, #12301C 40%, #0A2010 100%); border-color:rgba(76,175,80,0.4); box-shadow:0 0 32px rgba(76,175,80,0.15); }
   .module-card.m1 .num { color:#81C784; }
   .module-card.m1 h2 { background:linear-gradient(90deg, #4CAF50, #8BC34A, #FFEB3B); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .module-card.m1 .sep { background:#4CAF50; }
@@ -107,9 +108,9 @@
   .module-card.m1 .arrow { color:#4CAF50; }
 
   /* M2 — Blue */
-  .module-card.m2 { background:linear-gradient(160deg, #0A1220 0%, #0D1628 40%, #0B101D 100%); border-color:rgba(33,150,243,0.15); }
+  .module-card.m2 { background:linear-gradient(160deg, #081022 0%, #0C182E 40%, #060E1C 100%); border-color:rgba(33,150,243,0.2); }
   .module-card.m2::before { background:linear-gradient(90deg, #3F51B5, #2196F3, #00BCD4); }
-  .module-card.m2:hover { background:linear-gradient(160deg, #0C1426 0%, #0F1A30 40%, #0D1222 100%); border-color:rgba(33,150,243,0.3); box-shadow:0 0 32px rgba(33,150,243,0.12); }
+  .module-card.m2:hover { background:linear-gradient(160deg, #0C1830 0%, #102040 40%, #081024 100%); border-color:rgba(33,150,243,0.4); box-shadow:0 0 32px rgba(33,150,243,0.15); }
   .module-card.m2 .num { color:#64B5F6; }
   .module-card.m2 h2 { background:linear-gradient(90deg, #3F51B5, #2196F3, #00BCD4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .module-card.m2 .sep { background:#2196F3; }
@@ -118,9 +119,9 @@
   .module-card.m2 .arrow { color:#2196F3; }
 
   /* M3 — Purple */
-  .module-card.m3 { background:linear-gradient(160deg, #140B1A 0%, #180E20 40%, #100B16 100%); border-color:rgba(156,39,176,0.15); }
+  .module-card.m3 { background:linear-gradient(160deg, #17091E 0%, #1F0D2A 40%, #12071A 100%); border-color:rgba(156,39,176,0.2); }
   .module-card.m3::before { background:linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5); }
-  .module-card.m3:hover { background:linear-gradient(160deg, #180D20 0%, #1C1026 40%, #120D1A 100%); border-color:rgba(156,39,176,0.3); box-shadow:0 0 32px rgba(156,39,176,0.12); }
+  .module-card.m3:hover { background:linear-gradient(160deg, #1F0D2A 0%, #281438 40%, #160920 100%); border-color:rgba(156,39,176,0.4); box-shadow:0 0 32px rgba(156,39,176,0.15); }
   .module-card.m3 .num { color:#CE93D8; }
   .module-card.m3 h2 { background:linear-gradient(90deg, #E91E63, #9C27B0, #3F51B5); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .module-card.m3 .sep { background:#9C27B0; }
@@ -129,9 +130,9 @@
   .module-card.m3 .arrow { color:#9C27B0; }
 
   /* M4 — Orange/warm */
-  .module-card.m4 { background:linear-gradient(160deg, #1A1008 0%, #1F140B 40%, #120E08 100%); border-color:rgba(255,152,0,0.15); }
+  .module-card.m4 { background:linear-gradient(160deg, #1F1002 0%, #2A1806 40%, #180C02 100%); border-color:rgba(255,152,0,0.2); }
   .module-card.m4::before { background:linear-gradient(90deg, #FFEB3B, #FF9800, #F44336); }
-  .module-card.m4:hover { background:linear-gradient(160deg, #1F140B 0%, #24180E 40%, #15100A 100%); border-color:rgba(255,152,0,0.3); box-shadow:0 0 32px rgba(255,152,0,0.12); }
+  .module-card.m4:hover { background:linear-gradient(160deg, #2A1806 0%, #381E08 40%, #1E0E02 100%); border-color:rgba(255,152,0,0.4); box-shadow:0 0 32px rgba(255,152,0,0.15); }
   .module-card.m4 .num { color:#FFB74D; }
   .module-card.m4 h2 { background:linear-gradient(90deg, #FFEB3B, #FF9800, #F44336); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   .module-card.m4 .sep { background:#FF9800; }
