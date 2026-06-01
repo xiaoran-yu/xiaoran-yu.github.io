@@ -2,11 +2,13 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="大鲸鱼 · 于潇然。投资尽调 · 财务建模 · 专业会计师。">
-<title>大鲸鱼</title>
+<meta name="description" content="大鲸鱼 · 于潇然。投资尽调 · 财务建模 · 专业会计师。The Big Whale · Yu Xiaoran — Due Diligence, Financial Modeling, Professional Accounting.">
+<title>大鲸鱼 · The Big Whale</title>
 <style>
   :root {
     --rainbow: linear-gradient(90deg, #4CAF50 0%, #8BC34A 14%, #FFEB3B 28%, #FF9800 42%, #F44336 56%, #E91E63 70%, #9C27B0 77%, #3F51B5 84%, #2196F3 91%, #00BCD4 100%);
+    --text-muted: #64748B;
+    --text-body: #94A3B8;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
@@ -53,6 +55,9 @@
   /* Main */
   .main-wrap { margin-left:220px; flex:1; overflow-x:hidden; width:calc(100% - 220px); }
 
+  /* English subtitle — clean, understated */
+  .en { display:block; font-size:14px; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; font-weight:400; }
+
   /* Hero — compact tech */
   .hero {
     position:relative; padding:36px 48px 30px; text-align:center;
@@ -68,8 +73,11 @@
     background:var(--rainbow); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
   }
+  .hero .en-hero { font-size:18px; color:var(--text-muted); letter-spacing:6px; text-transform:uppercase; margin-top:4px; }
   .hero .tagline { font-size:22px; color:#CBD5E1; margin-top:6px; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+  .hero .en-tagline { font-size:15px; color:var(--text-muted); letter-spacing:1px; margin-top:2px; }
   .hero .desc { font-size:18px; color:#CBD5E1; margin-top:4px; max-width:680px; margin-left:auto; margin-right:auto; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+  .hero .en-desc { font-size:14px; color:var(--text-muted); max-width:720px; margin:2px auto 0; }
   .hero .cta {
     display:inline-block; margin-top:14px; padding:10px 28px; border-radius:50px;
     background:linear-gradient(#0B1120,#0B1120) padding-box, var(--rainbow) border-box;
@@ -83,6 +91,7 @@
   /* Content */
   .content { margin:0 auto; padding:0 48px 80px; }
   .section-title { font-size:16px; text-transform:uppercase; letter-spacing:3px; color:#64748B; margin:56px 0 24px; font-weight:600; }
+  .section-title .en { display:inline; font-size:13px; color:var(--text-muted); letter-spacing:2px; margin-left:12px; text-transform:uppercase; opacity:0.7; }
 
   /* Modules */
   .modules { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
@@ -106,6 +115,7 @@
   .module-card.m1 .items li::before { color:#4CAF50; }
   .module-card.m1 .tag { background:rgba(76,175,80,0.12); color:#81C784; }
   .module-card.m1 .arrow { color:#4CAF50; }
+  .module-card.m1 .en { color:rgba(129,199,132,0.6); }
 
   /* M2 — Blue */
   .module-card.m2 { background:linear-gradient(160deg, #081022 0%, #0C182E 40%, #060E1C 100%); border-color:rgba(33,150,243,0.2); }
@@ -117,6 +127,7 @@
   .module-card.m2 .items li::before { color:#2196F3; }
   .module-card.m2 .tag { background:rgba(33,150,243,0.12); color:#64B5F6; }
   .module-card.m2 .arrow { color:#2196F3; }
+  .module-card.m2 .en { color:rgba(100,181,246,0.6); }
 
   /* M3 — Purple */
   .module-card.m3 { background:linear-gradient(160deg, #17091E 0%, #1F0D2A 40%, #12071A 100%); border-color:rgba(156,39,176,0.2); }
@@ -128,6 +139,7 @@
   .module-card.m3 .items li::before { color:#9C27B0; }
   .module-card.m3 .tag { background:rgba(156,39,176,0.12); color:#CE93D8; }
   .module-card.m3 .arrow { color:#9C27B0; }
+  .module-card.m3 .en { color:rgba(206,147,216,0.6); }
 
   /* M4 — Orange/warm */
   .module-card.m4 { background:linear-gradient(160deg, #1F1002 0%, #2A1806 40%, #180C02 100%); border-color:rgba(255,152,0,0.2); }
@@ -139,12 +151,15 @@
   .module-card.m4 .items li::before { color:#FF9800; }
   .module-card.m4 .tag { background:rgba(255,152,0,0.12); color:#FFB74D; }
   .module-card.m4 .arrow { color:#FF9800; }
+  .module-card.m4 .en { color:rgba(255,183,77,0.6); }
 
   /* Shared card styles */
   .module-card .num { font-size:16px; letter-spacing:4px; margin-bottom:16px; font-weight:700; }
-  .module-card h2 { font-size:32px; font-weight:700; margin-bottom:8px; }
+  .module-card h2 { font-size:32px; font-weight:700; margin-bottom:4px; }
+  .module-card .en { font-size:13px; letter-spacing:1.5px; margin-bottom:8px; text-transform:uppercase; }
   .module-card .sep { width:70px; height:2px; margin:16px 0; }
   .module-card .desc { font-size:18px; color:#CBD5E1; line-height:2; margin-bottom:20px; }
+  .module-card .desc .en { display:block; font-size:14px; color:var(--text-muted); letter-spacing:1px; text-transform:none; margin-top:4px; }
   .module-card .items { list-style:none; padding:0; }
   .module-card .items li { font-size:17px; color:#94A3B8; padding:7px 0; }
   .module-card .items li::before { content:'· '; margin-right:8px; font-weight:700; }
@@ -176,7 +191,9 @@
   }
   .about-inner.visible { opacity:1; transform:translateY(0); }
   .about-inner h3 { font-size:24px; font-weight:700; color:#F1F5F9; margin-bottom:10px; }
+  .about-inner .en-name { font-size:14px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase; }
   .about-inner p { font-size:18px; color:#CBD5E1; line-height:2; flex:1; }
+  .about-inner .en-bio { font-size:15px; color:var(--text-muted); line-height:1.9; flex:1; }
 
   /* Footer */
   footer { border-top:1px solid rgba(148,163,184,0.08); padding:44px 60px; text-align:center; }
@@ -184,6 +201,7 @@
   footer .flinks a { color:#94A3B8; text-decoration:none; font-size:16px; transition:color 0.3s; }
   footer .flinks a:hover { color:#F1F5F9; }
   footer .copy { font-size:14px; color:#64748B; }
+  footer .copy .en { display:inline; font-size:12px; color:var(--text-muted); text-transform:none; letter-spacing:1px; }
 
   /* Children's Day bubble canvas */
   #bubbleCanvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99; }
@@ -195,6 +213,7 @@
     .main-wrap { margin-left:64px; }
     .hero { padding:32px 32px 26px; }
     .hero h1 { font-size:46px; }
+    .hero .en-hero { font-size:14px; letter-spacing:4px; }
     .modules { grid-template-columns:1fr 1fr; gap:24px; }
     .content { padding:0 32px 60px; }
   }
@@ -203,7 +222,11 @@
     .main-wrap { margin-left:0; }
     .hero { padding:32px 20px 24px; }
     .hero h1 { font-size:36px; }
+    .hero .en-hero { font-size:12px; letter-spacing:3px; }
+    .hero .tagline { font-size:18px; }
+    .hero .en-tagline { font-size:13px; }
     .modules { grid-template-columns:1fr; gap:20px; }
+    .module-card h2 { font-size:26px; }
     .content { padding:0 16px 48px; }
     .about-inner { flex-direction:column; gap:20px; padding:28px; }
   }
@@ -231,8 +254,11 @@
   <div class="glow-line"></div>
   <div class="hero-content">
     <h1>大 鲸 鱼</h1>
+    <p class="en-hero">The Big Whale</p>
     <p class="tagline">投资尽调 · 财务建模 · 专业会计师</p>
+    <p class="en-tagline">Due Diligence &nbsp;·&nbsp; Financial Modeling &nbsp;·&nbsp; Professional Accounting</p>
     <p class="desc">深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。</p>
+    <p class="en-desc">Over two decades in China finance — Big Four partner, public-company CFO, private equity fund partner.</p>
     <a href="#modules" class="cta">探 索 专 业 领 域</a>
     <div class="social">
       <a href="mailto:13911773853@139.com">13911773853@139.com</a>
@@ -243,13 +269,14 @@
 
 <div class="content">
 
-<div class="section-title" id="modules">· 专业领域 ·</div>
+<div class="section-title" id="modules">· 专业领域 ·<span class="en">Practice Areas</span></div>
 <div class="modules">
   <div class="module-card m1">
     <div class="num">01</div>
     <h2>中国财务尽调概览</h2>
+    <p class="en">Financial Due Diligence in China</p>
     <div class="sep"></div>
-    <p class="desc">涵盖外商投资、并购重组、IPO财务核查等尽调模板与方法论。</p>
+    <p class="desc">涵盖外商投资、并购重组、IPO财务核查等尽调模板与方法论。<span class="en">FDI, M&A, and IPO financial due diligence frameworks and methodologies.</span></p>
     <ul class="items">
       <li><a href="articles/big-fund.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">我给国家大基金算个账</a> <span style="font-size:12px;color:#64748B">2026-05-29</span></li>
       <li><a href="articles/lit-accountants.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">文学史上的会计</a> <span style="font-size:12px;color:#64748B">2026-05-28</span></li>
@@ -262,8 +289,9 @@
   <div class="module-card m2">
     <div class="num">02</div>
     <h2>中国大陆及香港会计及监管规则汇总</h2>
+    <p class="en">Accounting &amp; Regulatory Framework — Mainland China &amp; Hong Kong</p>
     <div class="sep"></div>
-    <p class="desc">汇总CAS / IFRS / HKFRS核心差异，提供监管规则速查。</p>
+    <p class="desc">汇总CAS / IFRS / HKFRS核心差异，提供监管规则速查。<span class="en">Key differences across CAS, IFRS &amp; HKFRS at a glance.</span></p>
     <ul class="items">
       <li>CAS vs HKFRS vs IFRS 核心差异对照表</li>
       <li>收入确认（CAS 14 / IFRS 15）差异详解</li>
@@ -277,8 +305,9 @@
   <div class="module-card m3">
     <div class="num">03</div>
     <h2>财务投资建模</h2>
+    <p class="en">Financial Investment Modeling</p>
     <div class="sep"></div>
-    <p class="desc">DCF、LBO、并购模型、敏感性分析等标准化财务建模模板。</p>
+    <p class="desc">DCF、LBO、并购模型、敏感性分析等标准化财务建模模板。<span class="en">DCF, LBO, M&A models, sensitivity analysis — standardized templates.</span></p>
     <ul class="items">
       <li>DCF 自由现金流折现模型（含 WACC 自动计算）</li>
       <li>LBO 杠杆收购模型（Debt Schedule 自动生成）</li>
@@ -292,31 +321,37 @@
   <div class="module-card m4">
     <div class="num">04</div>
     <h2>会计师思考日记</h2>
+    <p class="en">An Accountant's Reflective Journal</p>
     <div class="sep"></div>
-    <p class="desc">专业思考、案例复盘、行业洞察。</p>
+    <p class="desc">专业思考、案例复盘、行业洞察。<span class="en">Professional reflections, case reviews &amp; industry insights.</span></p>
     <ul class="items">
-      <li><a href="articles/big-fund.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">我给国家大基金算个账</a> <span style="font-size:12px;color:#64748B">2026.05.29</span></li>
-      <li><a href="articles/lit-accountants.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">文学史上的会计</a> <span style="font-size:12px;color:#64748B">2026.05.28</span></li>
-      <li><a href="articles/cashflow.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">让我们回归现金流</a> <span style="font-size:12px;color:#64748B">2026.05.25</span></li>
-      <li><a href="articles/rd-capitalization.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">研发费用化后作价入股：一个会计矛盾</a> <span style="font-size:12px;color:#64748B">2026.05.22</span></li>
+      <li><a href="articles/big-fund.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">我给国家大基金算个账</a> <span style="font-size:12px;color:#64748B">2026-05-29</span></li>
+      <li><a href="articles/lit-accountants.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">文学史上的会计</a> <span style="font-size:12px;color:#64748B">2026-05-28</span></li>
+      <li><a href="articles/cashflow.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">让我们回归现金流</a> <span style="font-size:12px;color:#64748B">2026-05-25</span></li>
+      <li><a href="articles/rd-capitalization.html" style="color:#94A3B8;text-decoration:none" onmouseover="this.style.color='#FF9800'" onmouseout="this.style.color='#94A3B8'">研发费用化后作价入股：一个会计矛盾</a> <span style="font-size:12px;color:#64748B">2026-05-22</span></li>
     </ul>
     <div class="tag-row"><span class="tag">投资分析</span><span class="tag">跨学科</span><span class="tag">财务思考</span></div>
     <div class="arrow">→</div>
   </div>
 </div>
 
-<div class="section-title" id="about">· 关于 ·</div>
+<div class="section-title" id="about">· 关于 ·<span class="en">About</span></div>
 <div class="about-inner">
   <div style="min-width:220px">
     <h3>于潇然</h3>
+    <p class="en-name">Yu Xiaoran</p>
     <p style="color:#94A3B8;font-size:16px">四大合伙人 · 上市公司CFO<br>私募股权基金合伙人 · 北京</p>
+    <p style="color:var(--text-muted);font-size:13px;margin-top:4px;">Big Four Partner · Public-Company CFO<br>Private Equity Fund Partner · Beijing</p>
   </div>
-  <p>深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。专精中国及香港会计准则下的交易架构设计、财务模型审阅与IPO规范辅导。相信数字背后的商业实质，相信会计的尽头是专业判断。</p>
+  <div>
+    <p>深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。专精中国及香港会计准则下的交易架构设计、财务模型审阅与IPO规范辅导。相信数字背后的商业实质，相信会计的尽头是专业判断。</p>
+    <p class="en-bio" style="margin-top:12px;">Over two decades in China finance — from Big Four partner to public-company CFO, to private equity fund partner. Specialized in transaction structuring, financial model review, and IPO advisory under CAS &amp; HKFRS. A firm believer in the business substance behind every number, and that accounting, at its core, is professional judgment.</p>
+  </div>
 </div>
 
 <footer>
   <div class="flinks"><a href="mailto:13911773853@139.com">13911773853@139.com</a><a href="https://github.com/xiaoran-yu">GitHub</a></div>
-  <p class="copy">&copy; 2026 大鲸鱼 · 于潇然</p>
+  <p class="copy">&copy; 2026 大鲸鱼 · 于潇然 <span class="en">The Big Whale · Yu Xiaoran</span></p>
 </footer>
 
 </div></div>
