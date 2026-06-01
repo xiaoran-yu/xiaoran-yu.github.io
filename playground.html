@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>大鲸鱼 · Playground</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   Sweet Ocean Palette 甜心海洋配色
+   ──────────────────────────────
+   Deep:    #0B1120  深海夜幕 (hero + sidebar)
+   Pink:    #FF6B9D  珊瑚粉 (card-1 accent)
+   Purple:  #A78BFA  暮光紫 (card-2 accent)
+   Blue:    #60A5FA  天光蓝 (card-3 accent)
+   Mint:    #34D399  浅草绿 (card-4 accent)
+   Gold:    #FBBF24  星星金 (sparkle, warm accent)
+   White:   #FFFFFF  云白 (cards)
+   Ice:     #F5F7FA  薄霜灰 (page bg)
+   ============================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+a{text-decoration:none;color:inherit}
+body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line-height:1.85;display:flex;min-height:100vh;color:#2D3748}
+
+/* ===== Sidebar — deep ocean ===== */
+.sidebar{
+  width:210px;position:fixed;top:0;left:0;bottom:0;z-index:100;
+  background:linear-gradient(180deg,rgba(11,17,32,0.96),rgba(18,28,50,0.96),rgba(15,22,42,0.96));
+  backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.06);
+  padding:32px 16px;display:flex;flex-direction:column;
+}
+.side-logo{text-align:center;margin-bottom:8px}
+.side-logo .whale{font-size:44px;display:block;animation:swim 3s ease-in-out infinite}
+@keyframes swim{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-6px) rotate(-3deg)}75%{transform:translateY(4px) rotate(3deg)}}
+.side-logo .name{font-size:24px;font-weight:800;letter-spacing:3px;margin-top:4px;
+  background:linear-gradient(135deg,#FF6B9D,#A78BFA,#60A5FA,#34D399);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.side-logo .sub{font-family:"Quicksand",sans-serif;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:5px;font-weight:600;margin-top:2px}
+.side-nav{margin-top:36px;flex:1;display:flex;flex-direction:column;gap:6px}
+.side-nav a{
+  color:rgba(255,255,255,0.45);padding:12px 16px;border-radius:16px;font-size:15px;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;font-weight:500;
+}
+.side-nav a:hover{color:#fff;background:rgba(255,255,255,0.04);transform:translateX(4px)}
+.side-nav a.active{color:#fff;font-weight:700;background:linear-gradient(135deg,rgba(255,107,157,0.12),rgba(167,139,250,0.08))}
+.side-nav a.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:28px;border-radius:0 6px 6px 0;
+  background:linear-gradient(180deg,#FF6B9D,#A78BFA,#60A5FA)}
+.side-nav .icon{display:inline-block;width:22px;text-align:center;margin-right:8px;font-size:15px}
+.side-footer{font-size:11px;color:rgba(255,255,255,0.2);text-align:center}
+
+/* ===== Main ===== */
+.main{margin-left:210px;flex:1;background:#F5F7FA}
+
+/* ===== Hero — 暗黑未来感 + 统一彩色渐变 ===== */
+.hero{
+  position:relative;padding:40px 56px 32px;text-align:center;
+  background:linear-gradient(rgba(11,17,32,0.5),rgba(11,17,32,0.58)),url('assets/hero-bg.png') center 30%/cover no-repeat;
+  overflow:hidden;
+}
+.hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#FF6B9D,#A78BFA,#60A5FA,#34D399,#FBBF24);opacity:0.8}
+.hero>*{position:relative;z-index:1}
+
+.hero h1{font-size:64px;font-weight:800;letter-spacing:5px;
+  background:linear-gradient(135deg,#FF6B9D 0%,#A78BFA 30%,#60A5FA 55%,#34D399 75%,#FBBF24 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 12px rgba(0,0,0,0.5))}
+.hero .en-hero{font-family:"Quicksand",sans-serif;font-size:17px;color:rgba(255,255,255,0.38);letter-spacing:10px;text-transform:uppercase;margin-top:2px;font-weight:600}
+.hero .tagline{font-size:20px;color:rgba(255,255,255,0.78);margin-top:14px;font-weight:500}
+.hero .tagline .dot{display:inline-block;margin:0 4px;font-weight:800}
+.hero .tagline .dot:nth-child(1){color:#FF6B9D}
+.hero .tagline .dot:nth-child(2){color:#A78BFA}
+.hero .tagline .dot:nth-child(3){color:#60A5FA}
+.hero .sub-line{font-family:"Quicksand",sans-serif;font-size:14px;color:rgba(255,255,255,0.32);margin-top:4px;letter-spacing:1px}
+
+/* Sparkle canvas */
+#sparkleCanvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+/* ===== Content ===== */
+.content{padding:0 56px 64px;position:relative}
+
+/* Section title */
+.sec-title{margin:52px 0 24px;text-align:center}
+.sec-title .deco{font-size:16px;display:block;margin-bottom:6px;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.sec-title .zh{font-size:20px;font-weight:800;letter-spacing:4px;color:#4A5568}
+.sec-title .en{font-family:"Quicksand",sans-serif;font-size:13px;color:#A0AEC0;letter-spacing:4px;text-transform:uppercase;display:block;margin-top:2px;font-weight:600}
+
+/* ===== Cards ===== */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{
+  border-radius:24px;padding:42px 38px;background:#fff;
+  border:1.5px solid #E8ECF2;min-height:360px;position:relative;
+  box-shadow:0 2px 16px rgba(0,0,0,0.02);overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.card:hover{transform:translateY(-6px)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;border-radius:24px 24px 0 0}
+.card::after{content:"";position:absolute;top:-50px;right:-50px;width:120px;height:120px;border-radius:50%;opacity:0.05;transition:all 0.5s}
+.card:hover::after{transform:scale(1.5);opacity:0.1}
+
+.card .num-badge{display:inline-flex;align-items:center;justify-content:center;
+  width:48px;height:48px;border-radius:16px;font-size:20px;font-weight:800;color:#fff;margin-bottom:16px}
+.card h2{font-size:30px;font-weight:800;margin-bottom:2px;letter-spacing:1px}
+.card .en-title{font-family:"Quicksand",sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.card .sep{width:56px;height:3px;margin:16px 0 20px;border-radius:4px}
+.card .desc{font-size:16px;line-height:2;margin-bottom:16px;color:#5A6778}
+.card .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.card .tags span{font-size:13px;padding:6px 16px;border-radius:24px;font-weight:600;letter-spacing:0.5px}
+.card li{font-size:15px;padding:5px 0;list-style:none;color:#64748B}
+.card li::before{content:"▸ ";margin-right:8px;font-weight:700;font-size:10px}
+.card .arrow{position:absolute;bottom:32px;right:32px;font-size:28px;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);opacity:0.35}
+.card:hover .arrow{transform:translateX(6px);opacity:1}
+
+/* C1 — Coral Pink */
+.c1::before{background:linear-gradient(90deg,#FF6B9D,#F9A8D4,#FBCFE8)}
+.c1::after{background:#FF6B9D}
+.c1 .num-badge{background:linear-gradient(135deg,#FF6B9D,#F472B6)}
+.c1 h2{background:linear-gradient(135deg,#E11D48,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.c1 .en-title{color:#F9A8D4}
+.c1 .sep{background:linear-gradient(90deg,#FBCFE8,#F472B6)}
+.c1 .tags span{background:rgba(255,107,157,0.1);color:#BE185D}
+.c1 li::before{color:#FF6B9D}
+.c1:hover{box-shadow:0 20px 56px rgba(255,107,157,0.12);border-color:rgba(255,107,157,0.3)}
+.c1 .arrow{color:#F472B6}
+
+/* C2 — Twilight Purple */
+.c2::before{background:linear-gradient(90deg,#A78BFA,#C4B5FD,#DDD6FE)}
+.c2::after{background:#A78BFA}
+.c2 .num-badge{background:linear-gradient(135deg,#8B5CF6,#A78BFA)}
+.c2 h2{background:linear-gradient(135deg,#6D28D9,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.c2 .en-title{color:#C4B5FD}
+.c2 .sep{background:linear-gradient(90deg,#DDD6FE,#A78BFA)}
+.c2 .tags span{background:rgba(139,92,246,0.1);color:#6D28D9}
+.c2 li::before{color:#8B5CF6}
+.c2:hover{box-shadow:0 20px 56px rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3)}
+.c2 .arrow{color:#A78BFA}
+
+/* C3 — Sky Blue */
+.c3::before{background:linear-gradient(90deg,#60A5FA,#93C5FD,#38BDF8)}
+.c3::after{background:#60A5FA}
+.c3 .num-badge{background:linear-gradient(135deg,#3B82F6,#60A5FA)}
+.c3 h2{background:linear-gradient(135deg,#1D4ED8,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.c3 .en-title{color:#93C5FD}
+.c3 .sep{background:linear-gradient(90deg,#BFDBFE,#60A5FA)}
+.c3 .tags span{background:rgba(59,130,246,0.1);color:#1D4ED8}
+.c3 li::before{color:#3B82F6}
+.c3:hover{box-shadow:0 20px 56px rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.3)}
+.c3 .arrow{color:#60A5FA}
+
+/* C4 — Mint Green */
+.c4::before{background:linear-gradient(90deg,#34D399,#6EE7B7,#A3E635)}
+.c4::after{background:#34D399}
+.c4 .num-badge{background:linear-gradient(135deg,#10B981,#34D399)}
+.c4 h2{background:linear-gradient(135deg,#047857,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.c4 .en-title{color:#6EE7B7}
+.c4 .sep{background:linear-gradient(90deg,#A7F3D0,#34D399)}
+.c4 .tags span{background:rgba(16,185,129,0.1);color:#047857}
+.c4 li::before{color:#10B981}
+.c4:hover{box-shadow:0 20px 56px rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3)}
+.c4 .arrow{color:#34D399}
+
+/* ===== About ===== */
+.about{
+  margin-top:48px;border-radius:24px;padding:44px 48px;
+  background:linear-gradient(135deg,#fff 0%,#FFF0F5 40%,#F0F0FF 100%);
+  border:1.5px solid #E8E0F0;display:flex;gap:52px;align-items:flex-start;
+  position:relative;overflow:hidden;
+}
+.about::before{content:"";position:absolute;top:-50px;right:-30px;width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,107,157,0.06),transparent 70%)}
+.about::after{content:"";position:absolute;bottom:-30px;left:-20px;width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle,rgba(96,165,250,0.06),transparent 70%)}
+.about>*{position:relative;z-index:1}
+.about h3{font-size:24px;font-weight:800;color:#1E293B;margin-bottom:4px}
+.about .en-name{font-family:"Quicksand",sans-serif;font-size:14px;color:#A0AEC0;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.about .role{font-size:15px;color:#64748B;line-height:1.9}
+.about .bio{font-size:16px;color:#4A5568;line-height:2;flex:1}
+
+/* ===== 儿童节彩蛋元素 ===== */
+/* Floating cute characters */
+.float-crew{position:absolute;pointer-events:none;z-index:0;font-size:28px;opacity:0.25}
+.float-crew.a1{top:60px;left:30px;animation:driftA 10s ease-in-out infinite}
+.float-crew.a2{top:200px;right:40px;animation:driftB 13s ease-in-out infinite;font-size:36px}
+.float-crew.a3{top:500px;left:25px;animation:driftA 14s ease-in-out infinite;font-size:22px}
+.float-crew.a4{top:700px;right:50px;animation:driftB 11s ease-in-out infinite;font-size:30px}
+.float-crew.a5{top:380px;left:60px;animation:driftC 15s ease-in-out infinite;font-size:20px}
+@keyframes driftA{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(20px,-15px) rotate(5deg)}50%{transform:translate(8px,-28px) rotate(-3deg)}75%{transform:translate(-12px,-10px) rotate(2deg)}}
+@keyframes driftB{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-18px,-12px) rotate(-4deg)}50%{transform:translate(-6px,-24px) rotate(3deg)}75%{transform:translate(14px,-8px) rotate(-2deg)}}
+@keyframes driftC{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-8px,-10px)}}
+
+/* Bouncy rainbow balls in content */
+.rainbow-dots{position:absolute;pointer-events:none;z-index:0;bottom:30px;right:40px;display:flex;gap:8px}
+.rainbow-dots span{width:10px;height:10px;border-radius:50%;animation:bounceDot 2s ease-in-out infinite}
+.rainbow-dots span:nth-child(1){background:#FF6B9D;animation-delay:0s}
+.rainbow-dots span:nth-child(2){background:#A78BFA;animation-delay:0.15s}
+.rainbow-dots span:nth-child(3){background:#60A5FA;animation-delay:0.3s}
+.rainbow-dots span:nth-child(4){background:#34D399;animation-delay:0.45s}
+.rainbow-dots span:nth-child(5){background:#FBBF24;animation-delay:0.6s}
+@keyframes bounceDot{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+
+/* ===== Responsive ===== */
+@media(max-width:1023px){
+  .sidebar{width:180px;padding:24px 12px}
+  .main{margin-left:180px}
+  .hero{padding:32px 32px 22px}
+  .hero h1{font-size:48px}
+  .content{padding:0 32px 48px}
+  .cards{grid-template-columns:1fr 1fr;gap:20px}
+}
+@media(max-width:767px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .hero{padding:28px 18px 20px}
+  .hero h1{font-size:34px;letter-spacing:2px}
+  .hero .en-hero{font-size:12px;letter-spacing:5px}
+  .hero .tagline{font-size:16px}
+  .content{padding:0 16px 40px}
+  .cards{grid-template-columns:1fr}
+  .card{padding:32px 24px}
+  .card h2{font-size:24px}
+  .about{flex-direction:column;padding:32px}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="side-logo">
+    <span class="whale">🐋</span>
+    <div class="name">大 鲸 鱼</div>
+    <div class="sub">THE BIG WHALE</div>
+  </div>
+  <nav class="side-nav">
+    <a href="#" class="active"><span class="icon">✦</span> 首页</a>
+    <a href="#"><span class="icon">◇</span> 专业领域</a>
+    <a href="#"><span class="icon">○</span> 关于</a>
+    <a href="#"><span class="icon">⬡</span> GitHub</a>
+  </nav>
+  <div class="side-footer">© 2026 大鲸鱼</div>
+</aside>
+
+<div class="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="sparkleCanvas"></canvas>
+    <h1>大 鲸 鱼</h1>
+    <p class="en-hero">The Big Whale</p>
+    <p class="tagline">投资尽调<span class="dot">·</span>财务建模<span class="dot">·</span>专业会计师</p>
+    <p class="sub-line">Due Diligence · Financial Modeling · Professional Accounting</p>
+  </section>
+
+  <!-- Content -->
+  <div class="content" style="position:relative">
+    <!-- Floating cute crew -->
+    <div class="float-crew a1">🫧</div>
+    <div class="float-crew a2">⭐</div>
+    <div class="float-crew a3">🌈</div>
+    <div class="float-crew a4">🎈</div>
+    <div class="float-crew a5">💎</div>
+
+    <div class="sec-title">
+      <span class="deco">🧸 ✨ 🎀</span>
+      <span class="zh">专业领域</span>
+      <span class="en">Practice Areas</span>
+    </div>
+
+    <div class="cards">
+      <!-- Card 1 — Pink -->
+      <div class="card c1">
+        <div class="num-badge">01</div>
+        <h2>中国财务尽调概览</h2>
+        <p class="en-title">Financial Due Diligence in China</p>
+        <div class="sep"></div>
+        <p class="desc">涵盖外商投资、并购重组、IPO财务核查等尽调模板与方法论。</p>
+        <div class="tags"><span>买方尽调</span><span>IPO核查</span><span>并购重组</span></div>
+        <ul>
+          <li>尽调清单标准化模板（资产/负债/收入/成本）</li>
+          <li>财务异常指标识别与预警模型</li>
+          <li>现金流折现法（DCF）与相对估值联动</li>
+        </ul>
+        <div class="arrow">→</div>
+      </div>
+
+      <!-- Card 2 — Purple -->
+      <div class="card c2">
+        <div class="num-badge">02</div>
+        <h2>会计及监管规则汇总</h2>
+        <p class="en-title">Accounting &amp; Regulatory Framework</p>
+        <div class="sep"></div>
+        <p class="desc">汇总CAS / IFRS / HKFRS核心差异，提供监管规则速查。</p>
+        <div class="tags"><span>CAS</span><span>HKFRS</span><span>IFRS</span><span>上市规则</span></div>
+        <ul>
+          <li>CAS vs HKFRS vs IFRS 核心差异对照表</li>
+          <li>收入确认（CAS 14 / IFRS 15）差异详解</li>
+          <li>金融工具准则（IFRS 9 vs CAS 22）对比</li>
+        </ul>
+        <div class="arrow">→</div>
+      </div>
+
+      <!-- Card 3 — Blue -->
+      <div class="card c3">
+        <div class="num-badge">03</div>
+        <h2>财务投资建模</h2>
+        <p class="en-title">Financial Investment Modeling</p>
+        <div class="sep"></div>
+        <p class="desc">DCF、LBO、并购模型、敏感性分析等标准化财务建模模板。</p>
+        <div class="tags"><span>DCF</span><span>LBO</span><span>敏感性分析</span><span>IRR</span></div>
+        <ul>
+          <li>DCF 自由现金流折现模型（含WACC自动计算）</li>
+          <li>LBO 杠杆收购模型（Debt Schedule自动生成）</li>
+          <li>投资退出 IRR 测算与情景模拟</li>
+        </ul>
+        <div class="arrow">→</div>
+      </div>
+
+      <!-- Card 4 — Mint -->
+      <div class="card c4">
+        <div class="num-badge">04</div>
+        <h2>会计师思考日记</h2>
+        <p class="en-title">An Accountant's Reflective Journal</p>
+        <div class="sep"></div>
+        <p class="desc">专业思考、案例复盘、行业洞察。</p>
+        <div class="tags"><span>投资分析</span><span>跨学科</span><span>财务思考</span></div>
+        <ul>
+          <li>我给国家大基金算个账 <span style="font-size:12px;color:#A0AEC0;font-family:Quicksand,sans-serif">05-29</span></li>
+          <li>文学史上的会计 <span style="font-size:12px;color:#A0AEC0;font-family:Quicksand,sans-serif">05-28</span></li>
+          <li>让我们回归现金流 <span style="font-size:12px;color:#A0AEC0;font-family:Quicksand,sans-serif">05-25</span></li>
+        </ul>
+        <div class="arrow">→</div>
+      </div>
+    </div>
+
+    <!-- Bouncy dots -->
+    <div class="rainbow-dots"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <!-- About -->
+    <div class="about">
+      <div>
+        <h3>于潇然 <span style="font-size:18px">🐳</span></h3>
+        <p class="en-name">Yu Xiaoran</p>
+        <p class="role">四大合伙人 · 上市公司CFO<br>私募股权基金合伙人 · 北京</p>
+      </div>
+      <p class="bio">深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。专精中国及香港会计准则下的交易架构设计、财务模型审阅与IPO规范辅导。相信数字背后的商业实质，相信会计的尽头是专业判断。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sparkle Canvas + Whale SVG -->
+<script>
+(function(){
+var canvas=document.getElementById('sparkleCanvas');
+if(!canvas)return;
+var ctx=canvas.getContext('2d');
+var w,h,sparks=[];
+function resize(){w=canvas.width=canvas.offsetWidth;h=canvas.height=canvas.offsetHeight}
+resize();window.addEventListener('resize',resize);
+
+var colors=['#FF6B9D','#A78BFA','#60A5FA','#34D399','#FBBF24','#F9A8D4','#C4B5FD','rgba(255,255,255,0.6)'];
+
+function spark(){
+  var a=Math.random()*Math.PI*2;var s=0.3+Math.random()*1.2;
+  return{x:Math.random()*w,y:h+10,r:1.5+Math.random()*4,vx:Math.cos(a)*s,vy:-(1+Math.random()*3),
+    life:1,decay:0.003+Math.random()*0.008,color:colors[Math.floor(Math.random()*colors.length)],
+    rot:Math.random()*360,rv:(Math.random()-0.5)*3}
+}
+setInterval(function(){if(sparks.length<40)sparks.push(spark())},300);
+
+function starShape(cx,cy,r){
+  ctx.beginPath();
+  for(var i=0;i<5;i++){var a=i*Math.PI*2/5-Math.PI/2;var x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i==0?ctx.moveTo(x,y):ctx.lineTo(x,y);var a2=a+Math.PI/5;ctx.lineTo(cx+Math.cos(a2)*r*0.4,cy+Math.sin(a2)*r*0.4)}ctx.closePath()
+}
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  for(var i=0;i<sparks.length;i++){
+    var s=sparks[i];s.x+=s.vx;s.y+=s.vy;s.rot+=s.rv;s.life-=s.decay;
+    if(s.life<=0||s.y<-20){sparks.splice(i,1);i--;continue}
+    ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.rot*Math.PI/180);
+    ctx.globalAlpha=s.life*0.5;
+    if(Math.random()<0.3){ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(0,0,s.r,0,Math.PI*2);ctx.fill()}
+    else{ctx.fillStyle=s.color;starShape(0,0,s.r);ctx.fill()}
+    ctx.restore()
+  }
+  requestAnimationFrame(draw)
+}
+draw();
+})();
+</script>
+</body>
+</html>
