@@ -24,6 +24,9 @@ body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line
 body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
   background-image:radial-gradient(circle,#e8e8e8 1px,transparent 1px);background-size:28px 28px;opacity:0.5}
 
+/* === Anime Sparkle Canvas === */
+#sparkleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99}
+
 /* Sidebar */
 .sidebar{
   width:210px;position:fixed;top:0;left:0;bottom:0;z-index:100;
@@ -222,12 +225,14 @@ footer .copy{font-size:13px;color:#9ba09f}
 footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inline;letter-spacing:1px}
 
 /* Floating cute crew */
-.float-crew{position:absolute;pointer-events:none;z-index:0;font-size:26px;opacity:0.14}
-.float-crew.a1{top:30px;left:30px;animation:driftA 10s ease-in-out infinite}
-.float-crew.a2{top:160px;right:40px;animation:driftB 13s ease-in-out infinite;font-size:32px}
-.float-crew.a3{top:460px;left:25px;animation:driftA 14s ease-in-out infinite;font-size:20px}
-.float-crew.a4{top:660px;right:50px;animation:driftB 11s ease-in-out infinite;font-size:26px}
-.float-crew.a5{top:880px;left:60px;animation:driftC 15s ease-in-out infinite;font-size:18px}
+.float-crew{position:absolute;pointer-events:none;z-index:0;font-size:28px;opacity:0.22}
+.float-crew.a1{top:20px;left:30px;animation:driftA 9s ease-in-out infinite}
+.float-crew.a2{top:120px;right:35px;animation:driftB 11s ease-in-out infinite;font-size:36px}
+.float-crew.a3{top:350px;left:20px;animation:driftA 12s ease-in-out infinite;font-size:22px}
+.float-crew.a4{top:520px;right:45px;animation:driftB 10s ease-in-out infinite;font-size:30px}
+.float-crew.a5{top:750px;left:50px;animation:driftC 13s ease-in-out infinite;font-size:20px}
+.float-crew.a6{top:900px;right:30px;animation:driftA 14s ease-in-out infinite;font-size:24px}
+.float-crew.a7{top:150px;left:55px;animation:driftC 16s ease-in-out infinite;font-size:18px}
 @keyframes driftA{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(20px,-15px) rotate(5deg)}50%{transform:translate(8px,-28px) rotate(-3deg)}75%{transform:translate(-12px,-10px) rotate(2deg)}}
 @keyframes driftB{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-18px,-12px) rotate(-4deg)}50%{transform:translate(-6px,-24px) rotate(3deg)}75%{transform:translate(14px,-8px) rotate(-2deg)}}
 @keyframes driftC{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-8px,-10px)}}
@@ -285,6 +290,7 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
   <div class="side-footer">© 2026 大鲸鱼</div>
 </aside>
 
+<canvas id="sparkleCanvas"></canvas>
 <div class="main">
 
 <section class="hero">
@@ -309,9 +315,11 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
 
   <div class="float-crew a1">🫧</div>
   <div class="float-crew a2">⭐</div>
-  <div class="float-crew a3">🌈</div>
+  <div class="float-crew a3">🌸</div>
   <div class="float-crew a4">🎈</div>
   <div class="float-crew a5">💎</div>
+  <div class="float-crew a6">✨</div>
+  <div class="float-crew a7">🪷</div>
 
   <div class="section-title" id="modules">
     专业领域<span class="en">Practice Areas</span>
@@ -402,6 +410,43 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
 <script>
 var observer=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.12});
 document.querySelectorAll('.module-card,.about-inner').forEach(function(el){observer.observe(el)});
+
+// === Anime Sparkle Canvas ===
+(function(){
+var c=document.getElementById('sparkleCanvas');if(!c)return;
+var ctx=c.getContext('2d'),w,h,sparks=[];
+function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+
+var colors=['rgba(211,82,129,0.5)','rgba(0,70,236,0.4)','rgba(24,162,220,0.4)','rgba(65,187,70,0.35)','rgba(244,204,66,0.45)','rgba(255,255,255,0.5)'];
+
+function spawn(){
+  var a=Math.random()*Math.PI*2,s=0.2+Math.random()*0.8;
+  return{x:Math.random()*w,y:Math.random()*h*0.6,r:1.5+Math.random()*3.5,vx:Math.cos(a)*s,vy:-(0.5+Math.random()*1.5),
+    life:1,decay:0.003+Math.random()*0.008,color:colors[Math.floor(Math.random()*colors.length)],
+    type:Math.random()<0.4?'star':'dot'}
+}
+setInterval(function(){if(sparks.length<30)sparks.push(spawn())},400);
+
+function starShape(ctx,cx,cy,r){
+  ctx.beginPath();
+  for(var i=0;i<5;i++){var a=i*Math.PI*2/5-Math.PI/2;var x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i==0?ctx.moveTo(x,y):ctx.lineTo(x,y);ctx.lineTo(cx+Math.cos(a+Math.PI/5)*r*0.4,cy+Math.sin(a+Math.PI/5)*r*0.4)}ctx.closePath()
+}
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  for(var i=0;i<sparks.length;i++){
+    var s=sparks[i];s.x+=s.vx;s.y+=s.vy;s.life-=s.decay;
+    if(s.life<=0||s.y<-30||s.y>h+30){sparks.splice(i,1);i--;continue}
+    ctx.save();ctx.globalAlpha=s.life*0.5;
+    if(s.type==='star'){ctx.fillStyle=s.color;starShape(ctx,s.x,s.y,s.r);ctx.fill()}
+    else{ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}
+    ctx.restore()
+  }
+  requestAnimationFrame(draw)
+}
+draw();
+})();
 </script>
 </body>
 </html>
