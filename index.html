@@ -431,44 +431,43 @@ document.querySelectorAll('.module-card,.about-inner').forEach(function(el){obse
 (function(){
 var c=document.getElementById('heroVortex');if(!c)return;
 var ctx=c.getContext('2d'),w,h;
-function resize(){var r=c.parentElement.getBoundingClientRect();w=c.width=r.width;h=c.height=r.height}
-resize();window.addEventListener('resize',resize);
+function resize(){var r=c.parentElement;w=c.width=r.offsetWidth||window.innerWidth;h=c.height=r.offsetHeight||100}
+setTimeout(resize,100);window.addEventListener('resize',resize);
 
-var waveColors=['rgba(211,82,129,0.45)','rgba(0,70,236,0.4)','rgba(24,162,220,0.4)','rgba(244,204,66,0.35)','rgba(65,187,70,0.35)'];
+var waveColors=['#d35281','#0046ec','#18a2dc','#f4cc42','#41bb46'];
 
 function draw(){
   ctx.clearRect(0,0,w,h);
   var t=Date.now()*0.001;
 
-  // 5 wave layers, each a sine wave with particles flowing along it
   for(var layer=0;layer<5;layer++){
-    var yBase=h*0.2+layer*h*0.15;
-    var amp=h*0.06+layer*h*0.02;
-    var freq=0.003+layer*0.0012;
-    var speed=0.4+layer*0.25;
-    var phase=layer*1.3;
+    var yBase=h*0.25+layer*h*0.16;
+    var amp=h*0.1;
+    var freq=0.002+layer*0.001;
+    var speed=0.6+layer*0.35;
+    var phase=layer*1.5;
     var color=waveColors[layer];
+    var alpha=0.5-layer*0.07;
 
-    // Draw flowing particles along the wave
-    var steps=120;
     ctx.beginPath();
-    for(var i=0;i<=steps;i++){
-      var x=w*(i/steps-0.1);
-      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*1.7+t*0.6)*amp*0.5;
+    ctx.globalAlpha=alpha;
+    for(var i=0;i<=200;i++){
+      var x=w*i/200;
+      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.3+t*0.5+phase)*amp*0.6;
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     }
-    ctx.strokeStyle=color.replace(/[\d.]+\)$/,layer===0?'0.6)':layer===1?'0.5)':layer===2?'0.4)':layer===3?'0.3)':'0.25)');
-    ctx.lineWidth=layer===0?2:1.5;
+    ctx.strokeStyle=color;
+    ctx.lineWidth=2.5-layer*0.3;
     ctx.stroke();
 
-    // Bright dots at wave crests
-    for(var i=0;i<steps;i+=8){
-      var x=w*(i/steps-0.1);
-      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*1.7+t*0.6)*amp*0.5;
-      var dotAlpha=0.5+0.5*Math.sin(i*0.5+t*3);
-      ctx.beginPath();ctx.arc(x,y,2+Math.random()*1.5,0,Math.PI*2);
-      ctx.fillStyle=color.replace(/[\d.]+\)$/,dotAlpha+')');ctx.fill()
+    // Glow dots at wave peaks
+    for(var i=0;i<200;i+=12){
+      var x=w*i/200;
+      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.3+t*0.5+phase)*amp*0.6;
+      ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);
+      ctx.fillStyle=color;ctx.fill()
     }
+    ctx.globalAlpha=1;
   }
   requestAnimationFrame(draw)
 }
