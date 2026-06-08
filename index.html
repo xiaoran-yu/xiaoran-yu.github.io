@@ -427,7 +427,7 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
 var observer=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.12});
 document.querySelectorAll('.module-card,.about-inner').forEach(function(el){observer.observe(el)});
 
-// === Hero Wave Canvas ===
+// === Hero Wave Dots Canvas ===
 (function(){
 var c=document.getElementById('heroVortex');if(!c)return;
 var ctx=c.getContext('2d'),w,h;
@@ -441,31 +441,22 @@ function draw(){
   var t=Date.now()*0.001;
 
   for(var layer=0;layer<5;layer++){
-    var yBase=h*0.25+layer*h*0.16;
-    var amp=h*0.1;
-    var freq=0.002+layer*0.001;
-    var speed=0.6+layer*0.35;
-    var phase=layer*1.5;
+    var yBase=h*0.3+layer*h*0.14;
+    var amp=h*0.12;
+    var freq=0.0015+layer*0.0008;
+    var speed=0.7+layer*0.35;
+    var phase=layer*1.4;
     var color=waveColors[layer];
-    var alpha=0.5-layer*0.07;
 
-    ctx.beginPath();
-    ctx.globalAlpha=alpha;
-    for(var i=0;i<=200;i++){
-      var x=w*i/200;
-      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.3+t*0.5+phase)*amp*0.6;
-      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle=color;
-    ctx.lineWidth=2.5-layer*0.3;
-    ctx.stroke();
-
-    // Glow dots at wave peaks
-    for(var i=0;i<200;i+=12){
-      var x=w*i/200;
-      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.3+t*0.5+phase)*amp*0.6;
-      ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);
-      ctx.fillStyle=color;ctx.fill()
+    // Dense dots forming wave shape
+    for(var i=0;i<400;i++){
+      var x=w*i/400;
+      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.7+t*0.4+phase)*amp*0.55;
+      // Vary dot size for depth effect
+      var r=1+Math.abs(Math.sin(x*freq*5+t*2+phase))*2;
+      var alpha=0.25+Math.abs(Math.sin(x*freq*3+t*1.5+phase))*0.4;
+      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+      ctx.fillStyle=color;ctx.globalAlpha=alpha;ctx.fill()
     }
     ctx.globalAlpha=1;
   }
