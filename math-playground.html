@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Math · Huemint Playground</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#010403;overflow:hidden;font-family:'Quicksand',sans-serif}
+canvas{display:block}
+.tabs{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px}
+.tabs button{padding:8px 18px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);cursor:pointer;font-size:13px;letter-spacing:1px;transition:all 0.3s;font-family:inherit}
+.tabs button:hover,.tabs button.active{background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.3)}
+.tabs button.active{background:rgba(0,70,236,0.2);border-color:#0046ec}
+.info{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;color:rgba(255,255,255,0.35);font-size:12px;letter-spacing:3px}
+.palette{position:fixed;top:20px;right:24px;z-index:10;display:flex;gap:6px}
+.palette span{width:12px;height:12px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="tabs">
+  <button class="active" data-scene="0">🌊 波纹曲面</button>
+  <button data-scene="1">🌀 环面结</button>
+  <button data-scene="2">💫 粒子漩涡</button>
+  <button data-scene="3">🎀 莫比乌斯流</button>
+</div>
+<div class="palette">
+  <span style="background:#d35281"></span><span style="background:#0046ec"></span>
+  <span style="background:#18a2dc"></span><span style="background:#f4cc42"></span>
+  <span style="background:#41bb46"></span><span style="background:#fffefe"></span>
+</div>
+<div class="info" id="caption">f(x,y) = sin(√(x²+y²)) · e^(-r)</div>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const COLORS = [
+  new THREE.Color('#d35281'),
+  new THREE.Color('#0046ec'),
+  new THREE.Color('#18a2dc'),
+  new THREE.Color('#f4cc42'),
+  new THREE.Color('#41bb46'),
+  new THREE.Color('#61e655'),
+  new THREE.Color('#fffefe'),
+];
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#010403');
+scene.fog = new THREE.Fog('#010403', 12, 50);
+
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.3, 80);
+camera.position.set(8, 4, 10);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.08;
+controls.autoRotate = true; controls.autoRotateSpeed = 0.4;
+controls.target.set(0, 0, 0);
+controls.minDistance = 3; controls.maxDistance = 30;
+
+// Lighting
+scene.add(new THREE.AmbientLight('#334466', 1.5));
+const key = new THREE.DirectionalLight('#ffffff', 3); key.position.set(5,10,5); scene.add(key);
+const rim = new THREE.DirectionalLight('#d35281', 1.5); rim.position.set(-5,-2,-5); scene.add(rim);
+
+let currentScene = 0;
+let cleanupFn = null;
+
+// ===== SCENE 0: Ripple Surface =====
+function scene0() {
+  const W=140, H=140;
+  const geo = new THREE.PlaneGeometry(14,14,W-1,H-1); geo.rotateX(-Math.PI/2);
+  const cols = new Float32Array(geo.attributes.position.count*3);
+  geo.setAttribute('color', new THREE.BufferAttribute(cols,3));
+
+  function update(t) {
+    const p = geo.attributes.position;
+    for(let i=0;i<p.count;i++){
+      const x=p.getX(i), y=p.getY(i), r=Math.sqrt(x*x+y*y);
+      let z=Math.sin(r*1.8+t*0.3)*Math.exp(-r*0.22);
+      z+=Math.sin(r*3.5-t*1.3)*Math.exp(-r*0.35)*0.6;
+      z+=Math.cos(r*6+t*0.7)*Math.exp(-r*0.5)*0.3;
+      z+=Math.sin(x*2.5+t*0.5)*Math.cos(y*2.5-t*0.4)*Math.exp(-r*0.3)*0.4;
+      z*=3.5; p.setZ(i,z);
+      const h=(z/3.5+1)/2, dist=r/7;
+      let c; if(h>0.6)c=COLORS[3].clone().lerp(COLORS[6],(h-0.6)/0.4);
+      else if(h>0.2)c=COLORS[2].clone().lerp(COLORS[3],(h-0.2)/0.4);
+      else if(h>-0.2)c=COLORS[1].clone().lerp(COLORS[2],(h+0.2)/0.4);
+      else if(h>-0.6)c=COLORS[0].clone().lerp(COLORS[1],(h+0.6)/0.4);
+      else c=COLORS[0];
+      c.lerp(new THREE.Color('#010403'),1-Math.exp(-dist*0.3));
+      cols[i*3]=c.r;cols[i*3+1]=c.g;cols[i*3+2]=c.b;
+    }
+    geo.attributes.position.needsUpdate=true;
+    geo.attributes.color.needsUpdate=true;
+    geo.computeVertexNormals();
+  }
+  update(0);
+  const mat = new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.35,metalness:0.1,side:THREE.DoubleSide});
+  const mesh = new THREE.Mesh(geo,mat); mesh.receiveShadow=true; scene.add(mesh);
+
+  // Ring
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(7,0.02,16,120),new THREE.MeshBasicMaterial({color:'#18a2dc',transparent:true,opacity:0.3}));
+  ring.rotation.x=Math.PI/2;ring.position.y=-3;scene.add(ring);
+
+  // Particles
+  const pGeo=new THREE.BufferGeometry(); const pCount=300;
+  const pPos=new Float32Array(pCount*3);
+  for(let i=0;i<pCount;i++){const th=Math.random()*Math.PI*2,r=6+Math.random()*3;
+    pPos[i*3]=Math.cos(th)*r;pPos[i*3+1]=1+Math.random()*6;pPos[i*3+2]=Math.sin(th)*r}
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  const pMat=new THREE.PointsMaterial({color:'#f4cc42',size:0.05,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.5});
+  const particles=new THREE.Points(pGeo,pMat);scene.add(particles);
+
+  document.getElementById('caption').textContent='f(x,y) = sin(√(x²+y²)) · e^(-0.001·(x²+y²))';
+
+  return {update(t){
+    update(t);
+    for(let i=0;i<pCount;i++){const x=pPos[i*3],z=pPos[i*3+2]; const a=Math.atan2(z,x)+0.003;
+      const r=Math.sqrt(x*x+z*z); pPos[i*3]=Math.cos(a)*r; pPos[i*3+2]=Math.sin(a)*r;
+      pPos[i*3+1]+=Math.sin(t+i*0.3)*0.01; if(pPos[i*3+1]>8)pPos[i*3+1]=0; if(pPos[i*3+1]<0)pPos[i*3+1]=8}
+    pGeo.attributes.position.needsUpdate=true;
+    ring.scale.setScalar(1+Math.sin(t*0.7)*0.08);
+  },cleanup(){scene.remove(mesh);scene.remove(ring);scene.remove(particles); geo.dispose();mat.dispose();}};
+}
+
+// ===== SCENE 1: Torus Knot =====
+function scene1() {
+  const geo=new THREE.TorusKnotGeometry(3.5,0.35,200,32,2,3);
+  const cols=new Float32Array(geo.attributes.position.count*3);
+  geo.setAttribute('color',new THREE.BufferAttribute(cols,3));
+
+  function update(t){
+    const p=geo.attributes.position;
+    for(let i=0;i<p.count;i++){
+      const x=p.getX(i),y=p.getY(i),z=p.getZ(i);
+      const h=(y+4)/8;
+      let c; if(h>0.7)c=COLORS[3].clone().lerp(COLORS[6],(h-0.7)/0.3);
+      else if(h>0.4)c=COLORS[2].clone().lerp(COLORS[3],(h-0.4)/0.3);
+      else if(h>0.2)c=COLORS[1].clone().lerp(COLORS[2],(h-0.2)/0.2);
+      else c=COLORS[0].clone().lerp(COLORS[1],h/0.2);
+      cols[i*3]=c.r;cols[i*3+1]=c.g;cols[i*3+2]=c.b;
+    }
+    geo.attributes.color.needsUpdate=true;
+  }
+  update(0);
+  const mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.2,metalness:0.3});
+  const mesh=new THREE.Mesh(geo,mat);mesh.receiveShadow=true;scene.add(mesh);
+
+  // Trail particles along knot
+  const tGeo=new THREE.BufferGeometry(); const tCount=600;
+  const tPos=new Float32Array(tCount*3);
+  for(let i=0;i<tCount;i++){const th=i/tCount*Math.PI*2; const r=4.5+Math.random()*1.5;
+    tPos[i*3]=Math.cos(th)*r;tPos[i*3+1]=(Math.random()-0.5)*3;tPos[i*3+2]=Math.sin(th)*r}
+  tGeo.setAttribute('position',new THREE.BufferAttribute(tPos,3));
+  const tMat=new THREE.PointsMaterial({color:'#f4cc42',size:0.04,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.5});
+  const trail=new THREE.Points(tGeo,tMat); scene.add(trail);
+
+  // Glow ring
+  const ringG=new THREE.TorusGeometry(4.5,0.01,16,200);
+  const ring=new THREE.Mesh(ringG,new THREE.MeshBasicMaterial({color:'#d35281',transparent:true,opacity:0.25}));
+  ring.rotation.x=Math.PI/3;scene.add(ring);
+
+  document.getElementById('caption').textContent='Torus Knot (2,3) · parametric space curve';
+
+  return {update(t){
+    mesh.rotation.y+=0.003;mesh.rotation.x+=0.001;
+    for(let i=0;i<tCount;i++){const a=Math.atan2(tPos[i*3+2],tPos[i*3])+0.005;
+      tPos[i*3]=Math.cos(a)*5;tPos[i*3+1]+=Math.sin(t+i*0.1)*0.008;tPos[i*3+2]=Math.sin(a)*5}
+    tGeo.attributes.position.needsUpdate=true;
+    ring.rotation.z+=0.005;ring.scale.setScalar(1+Math.sin(t*0.5)*0.05);
+  },cleanup(){scene.remove(mesh);scene.remove(trail);scene.remove(ring);geo.dispose();mat.dispose();}};
+}
+
+// ===== SCENE 2: Particle Vortex =====
+function scene2() {
+  const group=new THREE.Group();scene.add(group);
+
+  // Multiple spiral arms
+  const arms=5; const pPerArm=500;
+  const geo=new THREE.BufferGeometry(); const total=arms*pPerArm;
+  const pos=new Float32Array(total*3);const cols=new Float32Array(total*3);
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(cols,3));
+
+  for(let a=0;a<arms;a++){
+    const armAngle=(a/arms)*Math.PI*2;
+    for(let i=0;i<pPerArm;i++){
+      const idx=(a*pPerArm+i)*3;
+      const t=i/pPerArm; const r=t*7;
+      const angle=armAngle+t*8;
+      pos[idx]=Math.cos(angle)*r;
+      pos[idx+1]=(Math.random()-0.5)*2*(1-t);
+      pos[idx+2]=Math.sin(angle)*r;
+      const c=COLORS[a%5].clone().lerp(COLORS[6],t*0.7);
+      cols[idx]=c.r;cols[idx+1]=c.g;cols[idx+2]=c.b;
+    }
+  }
+  const mat=new THREE.PointsMaterial({vertexColors:true,size:0.06,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.7});
+  const points=new THREE.Points(geo,mat);group.add(points);
+
+  // Center glow
+  const glow=new THREE.Mesh(new THREE.SphereGeometry(0.6,32,32),new THREE.MeshBasicMaterial({color:'#fffefe',transparent:true,opacity:0.3,blending:THREE.AdditiveBlending,depthWrite:false}));
+  group.add(glow);
+  const glow2=new THREE.Mesh(new THREE.SphereGeometry(1.2,32,32),new THREE.MeshBasicMaterial({color:'#0046ec',transparent:true,opacity:0.1,blending:THREE.AdditiveBlending,depthWrite:false}));
+  group.add(glow2);
+
+  document.getElementById('caption').textContent='Galactic Vortex · 5-arm spiral particle system';
+
+  return {update(t){
+    group.rotation.y+=0.008;group.rotation.x=Math.sin(t*0.3)*0.15;
+    glow.scale.setScalar(1+Math.sin(t*2)*0.3);
+    glow2.scale.setScalar(1+Math.cos(t*1.5)*0.5);
+  },cleanup(){scene.remove(group);geo.dispose();mat.dispose();}};
+}
+
+// ===== SCENE 3: Möbius Flow =====
+function scene3() {
+  const segments=200; const width=1.2; const radius=4;
+  const geo=new THREE.BufferGeometry();
+  const verts=[]; const colsArr=[];
+  const indices=[];
+
+  for(let i=0;i<=segments;i++){
+    const t=i/segments; const angle=t*Math.PI*2;
+    for(let j=0;j<=20;j++){
+      const w=(j/20-0.5)*width;
+      const twist=t*Math.PI;
+      const cx=Math.cos(angle)*radius; const cz=Math.sin(angle)*radius;
+      const nx=Math.cos(angle)*Math.cos(twist); const ny=Math.sin(twist); const nz=Math.sin(angle)*Math.cos(twist);
+      const bx=-Math.sin(angle); const bz=Math.cos(angle);
+      verts.push(cx+nx*w,ny*width,cz+nz*w);
+      const h=(Math.sin(t*Math.PI*4)+1)/2;
+      let c; if(h>0.7)c=COLORS[3].clone().lerp(COLORS[6],(h-0.7)/0.3);
+      else if(h>0.4)c=COLORS[2].clone().lerp(COLORS[3],(h-0.4)/0.3);
+      else c=COLORS[0].clone().lerp(COLORS[1],h/0.4);
+      colsArr.push(c.r,c.g,c.b);
+    }
+  }
+  for(let i=0;i<segments;i++){
+    for(let j=0;j<20;j++){
+      const a=i*21+j,b=a+21,c=a+1,d=b+1;
+      indices.push(a,b,c);indices.push(c,b,d);
+    }
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(verts),3));
+  geo.setAttribute('color',new THREE.BufferAttribute(new Float32Array(colsArr),3));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+
+  const mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.3,metalness:0.2,side:THREE.DoubleSide});
+  const mesh=new THREE.Mesh(geo,mat);scene.add(mesh);
+
+  // Floating dots around
+  const dGeo=new THREE.BufferGeometry();const dCount=200;
+  const dPos=new Float32Array(dCount*3);
+  for(let i=0;i<dCount;i++){const a=Math.random()*Math.PI*2,r=5+Math.random()*2;
+    dPos[i*3]=Math.cos(a)*r;dPos[i*3+1]=(Math.random()-0.5)*4;dPos[i*3+2]=Math.sin(a)*r}
+  dGeo.setAttribute('position',new THREE.BufferAttribute(dPos,3));
+  const dots=new THREE.Points(dGeo,new THREE.PointsMaterial({color:'#f4cc42',size:0.05,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0.5}));
+  scene.add(dots);
+
+  document.getElementById('caption').textContent='Möbius Strip · twisted 180° ribbon';
+
+  return {update(t){
+    mesh.rotation.y+=0.005;
+    for(let i=0;i<dCount;i++){const a=Math.atan2(dPos[i*3+2],dPos[i*3])+0.008;const r=Math.sqrt(dPos[i*3]**2+dPos[i*3+2]**2);
+      dPos[i*3]=Math.cos(a)*r;dPos[i*3+1]+=Math.sin(t+i*0.2)*0.01}
+    dGeo.attributes.position.needsUpdate=true;
+  },cleanup(){scene.remove(mesh);scene.remove(dots);geo.dispose();mat.dispose();}};
+}
+
+// ===== Scene management =====
+const scenes=[scene0,scene1,scene2,scene3];
+let cleanup=null,updateFn=null;
+
+function switchScene(idx){
+  if(cleanup)cleanup();
+  updateFn=null;
+  const result=scenes[idx]();
+  updateFn=result.update;cleanup=result.cleanup;
+  currentScene=idx;
+  document.querySelectorAll('.tabs button').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+switchScene(0);
+
+document.querySelectorAll('.tabs button').forEach(btn=>{
+  btn.addEventListener('click',()=>switchScene(parseInt(btn.dataset.scene)));
+});
+
+// ===== Render loop =====
+const clock=new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const t=clock.getElapsedTime();
+  if(updateFn)updateFn(t);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+// Keyboard switch
+window.addEventListener('keydown',e=>{
+  if(e.key>='0'&&e.key<='3')switchScene(parseInt(e.key));
+});
+</script>
+</body>
+</html>
