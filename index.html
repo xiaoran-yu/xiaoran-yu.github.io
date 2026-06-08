@@ -88,10 +88,16 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
   background:linear-gradient(135deg,#d35281 0%,#0046ec 40%,#18a2dc 70%,#41bb46 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero .en-hero{font-family:"Quicksand",sans-serif;font-size:15px;color:#9ba09f;letter-spacing:8px;text-transform:uppercase;margin-top:2px;font-weight:600}
-/* Anime whale illustration */
-.hero-whale{position:relative;z-index:1;margin-bottom:8px}
-.hero-whale svg{max-width:320px;height:auto;animation:whaleFloat 5s ease-in-out infinite}
-@keyframes whaleFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+/* Anime whale — big emoji mascot */
+.hero-emoji{font-size:80px;display:block;animation:whaleFloat 4s ease-in-out infinite;filter:drop-shadow(0 6px 16px rgba(0,70,236,0.15));line-height:1;margin-bottom:6px;position:relative;z-index:1}
+@keyframes whaleFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+/* Anime clouds around whale */
+.hero-clouds{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero-cloud{position:absolute;background:#f0f4ff;border-radius:50%;opacity:0.5;animation:cloudDrift 8s ease-in-out infinite}
+.hero-cloud:nth-child(1){width:60px;height:30px;top:22%;left:15%}
+.hero-cloud:nth-child(2){width:45px;height:22px;top:18%;right:18%;animation-delay:3s}
+.hero-cloud:nth-child(3){width:35px;height:18px;top:30%;right:28%;animation-delay:5s}
+@keyframes cloudDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(15px,-8px)}}
 .hero .tagline{font-size:18px;color:#010403;margin-top:12px;font-weight:500}
 .hero .tagline .dot{display:inline-block;margin:0 5px;font-weight:800}
 .hero .tagline .dot:nth-child(1){color:#d35281}
@@ -302,63 +308,10 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
     <div class="hero-shape"></div><div class="hero-shape"></div><div class="hero-shape"></div>
     <div class="hero-shape"></div><div class="hero-shape"></div>
   </div>
-  <div class="hero-whale">
-    <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="whaleBody" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#0046ec;stop-opacity:1"/>
-          <stop offset="100%" style="stop-color:#18a2dc;stop-opacity:1"/>
-        </linearGradient>
-        <linearGradient id="whaleBelly" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:#b3d9ff;stop-opacity:1"/>
-          <stop offset="100%" style="stop-color:#e6f2ff;stop-opacity:1"/>
-        </linearGradient>
-        <radialGradient id="whaleEye" cx="50%" cy="50%">
-          <stop offset="0%" style="stop-color:#010403"/>
-          <stop offset="60%" style="stop-color:#010403"/>
-          <stop offset="100%" style="stop-color:#fff"/>
-        </radialGradient>
-      </defs>
-      <!-- Water splash / spray -->
-      <g opacity="0.3">
-        <ellipse cx="105" cy="18" rx="8" ry="12" fill="#18a2dc" transform="rotate(-15 105 18)"/>
-        <ellipse cx="125" cy="10" rx="6" ry="16" fill="#18a2dc" transform="rotate(-25 125 10)"/>
-        <ellipse cx="140" cy="8" rx="5" ry="14" fill="#0046ec" transform="rotate(-10 140 8)"/>
-        <ellipse cx="115" cy="5" rx="4" ry="10" fill="#18a2dc" transform="rotate(-30 115 5)"/>
-      </g>
-      <!-- Body -->
-      <ellipse cx="160" cy="95" rx="130" ry="48" fill="url(#whaleBody)"/>
-      <!-- Belly -->
-      <ellipse cx="170" cy="108" rx="90" ry="28" fill="url(#whaleBelly)" opacity="0.6"/>
-      <!-- Head bump -->
-      <ellipse cx="62" cy="80" rx="50" ry="40" fill="url(#whaleBody)"/>
-      <!-- Tail -->
-      <path d="M280,85 Q310,55 305,48 Q315,70 298,90 Z" fill="#0046ec"/>
-      <path d="M282,90 Q308,120 300,130 Q312,108 295,95 Z" fill="#0046ec"/>
-      <!-- Pectoral fin -->
-      <path d="M130,118 Q120,145 108,150 Q125,140 135,120 Z" fill="#18a2dc" opacity="0.7"/>
-      <!-- Eye -->
-      <circle cx="55" cy="80" r="7" fill="url(#whaleEye)"/>
-      <circle cx="53.5" cy="78.5" r="2.5" fill="#fff"/>
-      <!-- Smile -->
-      <path d="M40,90 Q50,100 65,92" fill="none" stroke="#0030b0" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-      <!-- Cheek blush -->
-      <ellipse cx="42" cy="88" rx="8" ry="5" fill="#d35281" opacity="0.2"/>
-      <!-- Belly lines -->
-      <path d="M130,100 Q150,95 170,100" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.4"/>
-      <path d="M120,108 Q150,103 180,108" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.3"/>
-      <!-- Water surface -->
-      <path d="M0,130 Q20,125 40,130 Q60,135 80,130 Q100,125 120,130 Q140,135 160,130 Q180,125 200,130 Q220,135 240,130 Q260,125 280,130 Q300,135 320,130" fill="none" stroke="#18a2dc" stroke-width="1.5" opacity="0.3"/>
-      <path d="M20,138 Q40,133 60,138 Q80,143 100,138 Q120,133 140,138 Q160,143 180,138 Q200,133 220,138 Q240,143 260,138 Q280,133 300,138" fill="none" stroke="#41bb46" stroke-width="1" opacity="0.2"/>
-      <!-- Sparkles around whale -->
-      <g opacity="0.5">
-        <circle cx="30" cy="50" r="2" fill="#f4cc42"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle>
-        <circle cx="290" cy="65" r="1.5" fill="#f4cc42"><animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/></circle>
-        <circle cx="240" cy="55" r="2.5" fill="#d35281"><animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/></circle>
-        <circle cx="80" cy="40" r="1.5" fill="#41bb46"><animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/></circle>
-      </g>
-    </svg>
+  <div class="hero-clouds">
+    <div class="hero-cloud"></div><div class="hero-cloud"></div><div class="hero-cloud"></div>
   </div>
+  <div class="hero-emoji">🐋</div>
   <h1>大 鲸 鱼</h1>
   <p class="en-hero">The Big Whale</p>
   <p class="tagline">投资尽调<span class="dot">·</span>财务建模<span class="dot">·</span>专业会计师</p>
