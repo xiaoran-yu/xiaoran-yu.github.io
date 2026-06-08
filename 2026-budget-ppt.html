@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026集团预算分析</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#dce2e8;display:flex;flex-direction:column;align-items:center;gap:36px;padding:36px 16px;font-family:'楷体','KaiTi','STKaiti',serif}
+
+.slide{width:1280px;height:720px;background:#fff;border-radius:4px;box-shadow:0 6px 32px rgba(0,0,0,0.1);display:flex;flex-direction:column;page-break-after:always;overflow:hidden}
+@media print{
+  @page{size:1280px 720px;margin:0}
+  body{background:#fff;padding:0;margin:0}
+  .slide{box-shadow:none;border-radius:0;page-break-after:always}
+  .slide:last-child{page-break-after:auto}
+}
+.header{background:#1E3F73;padding:18px 44px;display:flex;align-items:center;border-bottom:3px solid #B8942E}
+.header .title{font-size:22px;font-weight:700;color:#fff;letter-spacing:1.5px;font-family:'楷体','KaiTi','STKaiti',serif}
+.header .en{font-size:11px;color:rgba(255,255,255,0.45);font-weight:400;letter-spacing:2px;display:block;margin-top:2px;font-family:'Times New Roman',serif}
+
+.body{flex:1;display:flex;padding:16px 28px 10px;gap:18px;overflow:hidden}
+.body-full{flex:1;display:flex;flex-direction:column;padding:14px 44px 3%;gap:8px;overflow:hidden}
+
+.panel-left{width:58%;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.panel-right{width:42%;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+
+.sec-title{font-size:15px;font-weight:700;color:#1E3F73;letter-spacing:1px;padding-bottom:6px;border-bottom:1.5px solid #B8942E;font-family:'楷体','KaiTi','STKaiti',serif;display:flex;align-items:center;gap:6px}
+.sec-title::before{content:"";width:3px;height:14px;background:#B8942E;border-radius:2px;flex-shrink:0}
+
+/* Slide 2 big section title */
+.sec-title-big{font-size:17px;font-weight:700;color:#1E3F73;letter-spacing:1.5px;padding-bottom:6px;border-bottom:2px solid #B8942E;font-family:'楷体','KaiTi','STKaiti',serif;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.sec-title-big::before{content:"";width:4px;height:16px;background:#B8942E;border-radius:2px;flex-shrink:0}
+
+/* Tables */
+table{width:100%;border-collapse:collapse}
+th{background:#1E3F73;color:#fff;padding:8px 8px;font-weight:600;font-size:14px;letter-spacing:0.5px;font-family:'楷体','KaiTi','STKaiti',serif;text-align:center;white-space:nowrap}
+th.prof-hdr{background:#5B3A6E}
+th.divider-col{border-left:3px solid #fff}
+td{padding:7px 6px;text-align:center;border-bottom:1px solid #E8ECF2;font-size:15px;font-family:'Times New Roman',serif}
+td.label{font-family:'楷体','KaiTi','STKaiti',serif;font-weight:700;color:#1E3F73;text-align:left;font-size:15px;padding-left:8px}
+tr.total td{font-weight:700;border-top:2px solid #B8942E;background:#F4F6F8;font-size:16px}
+tr.total td.label{font-family:'楷体','KaiTi','STKaiti',serif;font-weight:700}
+.pos{color:#1A6B4A}
+.neg{color:#B83A3A}
+td.divider-col{border-left:3px solid #D4C5E0;background:rgba(250,248,252,0.6)}
+
+/* Section divider: gold line under specific rows */
+tr.gold-end td{border-bottom:2px solid #B8942E}
+
+/* Group header rows */
+tr.group-hdr td{background:#EEF2F7;font-family:'楷体','KaiTi','STKaiti',serif;font-weight:700;color:#1E3F73;font-size:15px;text-align:left;padding:9px 8px;border-bottom:1px solid #CBD5E1;letter-spacing:1px}
+
+/* S2 full-page large table */
+.s2-full{border-collapse:collapse}
+.s2-full th{padding:10px 14px;font-size:17px;letter-spacing:1.5px}
+.s2-full td{padding:10px 18px;font-size:18px;border-bottom:1px solid #E8ECF2}
+.s2-full td.label{font-size:18px;padding-left:10px}
+.s2-full tr.total td{font-size:20px;padding:14px 18px;border-top:3px solid #B8942E}
+.s2-full tr.group-hdr td{font-size:16px;padding:9px 14px;letter-spacing:2px}
+.s2-full .pos{color:#1A6B4A}
+.s2-full .neg{color:#B83A3A}
+.s2-full td.divider-col{border-left:3px solid #D4C5E0;background:rgba(250,248,252,0.6)}
+
+/* Pies */
+.pie-box{display:flex;flex-direction:column;align-items:center;gap:2px}
+.pie-title{font-size:13px;font-weight:700;color:#1E3F73;text-align:center;font-family:'楷体','KaiTi','STKaiti',serif;letter-spacing:1px}
+.legend-mini{display:flex;flex-wrap:wrap;gap:1px 10px;justify-content:center;font-size:10px;margin-top:2px}
+.legend-mini span{display:flex;align-items:center;gap:3px;font-family:'楷体','KaiTi','STKaiti',serif}
+.legend-mini .dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+
+.caption{font-size:11px;color:#A0AEC0;margin-top:4px;font-family:'楷体','KaiTi','STKaiti',serif}
+.slide-foot{padding:8px 44px;display:flex;justify-content:space-between;border-top:1px solid #E8ECF2;font-size:11px;color:#A0AEC0;letter-spacing:1px;font-family:'楷体','KaiTi','STKaiti',serif}
+.footnote{margin-top:6px;padding:9px 14px;background:#FFF9E6;border-left:4px solid #B8942E;font-size:14px;color:#5A4E2F;line-height:1.7;font-family:'楷体','KaiTi','STKaiti',serif;border-radius:0 6px 6px 0}
+.divider-line{height:1px;background:#D4C5E0;width:80%;margin:4px auto}
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1 ==================== -->
+<div class="slide">
+  <div class="header"><div class="title">2026年度集团预算分析 — 集团整体情况<span class="en">2026 Budget Analysis · Group Overview</span></div></div>
+  <div class="body-full">
+    <div class="sec-title-big">集团各板块 · 收入及利润贡献预算分析（RMB'000）</div>
+    <table class="s2-full" id="s2Table"></table>
+    <div class="caption">注：金涌持股比例60.81%，恒盛持股比例56.25%</div>
+    <div class="footnote" style="margin-top:2px;font-size:14px;padding:6px 14px"><strong>注：</strong>总部各职能部门收入包括PE部门的按85%核算的管理费收入共计人民币<span style="font-family:'Times New Roman',serif">55,975K</span>，以及投资管理部2026年预计收入人民币<span style="font-family:'Times New Roman',serif">9,707K</span>。</div>
+  </div>
+  <div class="slide-foot"><span>内部资料 · 仅供董事会及管理层使用</span><span>1 / 3</span></div>
+</div>
+
+<!-- ==================== SLIDE 2 ==================== -->
+<div class="slide">
+  <div class="header"><div class="title">2026年度集团预算分析 — 一级市场各BU<span class="en">2026 Budget Analysis · Primary Market Business Units</span></div></div>
+  <div class="body">
+    <div class="panel-left">
+      <div class="sec-title">一级市场各BU · 收入及分摊后利润贡献预算分析（RMB'000）</div>
+      <table id="buTable"></table>
+      <div class="caption">注：2025年无数据的BU系当年度尚未设立或未开展运营。</div>
+    </div>
+    <div class="panel-right">
+      <div class="pie-box"><div class="pie-title">2026预算收入构成</div><canvas id="pieRev" width="270" height="220"></canvas><div class="legend-mini" id="legRev"></div></div>
+      <div class="divider-line"></div>
+      <div class="pie-box"><div class="pie-title">2026预算利润贡献构成（正值）</div><canvas id="pieProf" width="270" height="220"></canvas><div class="legend-mini" id="legProf"></div></div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>内部资料 · 仅供董事会及管理层使用</span><span>2 / 3</span></div>
+</div>
+
+<!-- ==================== SLIDE 3 ==================== -->
+<div class="slide">
+  <div class="header"><div class="title">2026年度集团预算分析 — 总部职能部门费用<span class="en">2026 Budget Analysis · HQ Functional Department Expenses</span></div></div>
+  <div class="body-full">
+    <div class="sec-title">本部各职能部门 · 变动营运费用按性质分类预算分析（RMB'000）</div>
+    <table id="expTable"></table>
+    <div class="footnote" style="font-size:15px">
+      <strong>注：</strong>2025年实际发生的IT及信息系统支出合计人民币<span style="font-family:'Times New Roman',serif">308</span>万元，因历史分类方式不同，分散于折旧摊销、专业咨询费及其他业务支出等项目。2026年预算统一归集至资讯系统列示，整体资讯系统费用较2025年实际增加约人民币<span style="font-family:'Times New Roman',serif">170</span>万元。
+    </div>
+    <div class="caption">费用数据为总部各职能部门合计，不包含策略机遇投资部。</div>
+  </div>
+  <div class="slide-foot"><span>内部资料 · 仅供董事会及管理层使用</span><span>3 / 3</span></div>
+</div>
+
+<script>
+function fmt(n){ return n.toLocaleString(); }
+
+var bus = [
+  {name:'PE', rev26:11923, rev25:17852, prof26:602, prof25:6122},
+  {name:'RE', rev26:30200, rev25:7508, prof26:9330, prof25:-12541},
+  {name:'弘源(RE)', rev26:34495, rev25:31373, prof26:7547, prof25:9982},
+  {name:'绿创', rev26:9804, rev25:14208, prof26:3573, prof25:5136},
+  {name:'大运河', rev26:6710, rev25:8545, prof26:100, prof25:753},
+  {name:'西安', rev26:2300, rev25:2225, prof26:20, prof25:-21},
+  {name:'重庆', rev26:2853, rev25:0, prof26:-1912, prof25:0},
+  {name:'大健康', rev26:16024, rev25:6551, prof26:4632, prof25:-3217},
+  {name:'消费', rev26:7276, rev25:3793, prof26:565, prof25:-2924},
+  {name:'新材料', rev26:7082, rev25:3454, prof26:2374, prof25:-770},
+  {name:'半导体', rev26:14025, rev25:0, prof26:4727, prof25:-6311},
+  {name:'科创赋能', rev26:9850, rev25:5854, prof26:1681, prof25:-1190},
+  {name:'HV', rev26:12649, rev25:12842, prof26:9165, prof25:9343},
+  {name:'弘毅创投', rev26:2862, rev25:0, prof26:-3534, prof25:-1046}
+];
+
+// === SLIDE 1 ===
+var h='<tr><th>BU</th><th>收入<br>2026预算</th><th>收入<br>2025实际</th><th>变动额</th><th>变动率</th><th class="divider-col prof-hdr">分摊后利润<br>2026预算</th><th class="prof-hdr">分摊后利润<br>2025实际</th><th class="prof-hdr">变动额</th><th class="prof-hdr">变动率</th></tr>';
+var r26=0,r25=0,p26=0,p25=0;
+bus.forEach(function(b){
+  r26+=b.rev26;r25+=b.rev25;p26+=b.prof26;p25+=b.prof25;
+  var rc=b.rev26-b.rev25,pc=b.prof26-b.prof25,rp=b.rev25>0?(rc/b.rev25*100).toFixed(0)+'%':'—',pp=b.prof25!=0?(pc/Math.abs(b.prof25)*100).toFixed(0)+'%':'—';
+  h+='<tr><td class="label">'+b.name+'</td><td>'+fmt(b.rev26)+'</td><td>'+(b.rev25>0?fmt(b.rev25):'—')+'</td><td class="'+(rc>=0?'pos':'neg')+'">'+(rc>=0?'+':'')+fmt(rc)+'</td><td>'+(rc>=0?'+':'')+rp+'</td><td class="divider-col '+(b.prof26>=0?'pos':'neg')+'">'+fmt(b.prof26)+'</td><td class="'+(b.prof25>=0?'pos':'neg')+'">'+(b.prof25!=0?fmt(b.prof25):'—')+'</td><td class="'+(pc>=0?'pos':'neg')+'">'+(pc>=0?'+':'')+fmt(pc)+'</td><td>'+(pc>=0?'+':'')+pp+'</td></tr>';
+});
+var rcT=r26-r25,pcT=p26-p25;
+h+='<tr class="total"><td class="label">一级市场各BU合计</td><td>'+fmt(r26)+'</td><td>'+fmt(r25)+'</td><td class="pos">+'+fmt(rcT)+'</td><td>+'+(r25>0?(rcT/r25*100).toFixed(0):0)+'%</td><td class="divider-col pos">'+fmt(p26)+'</td><td class="pos">'+fmt(p25)+'</td><td class="pos">+'+fmt(pcT)+'</td><td>+'+(p25>0?(pcT/Math.abs(p25)*100).toFixed(0):0)+'%</td></tr>';
+document.getElementById('buTable').innerHTML=h;
+
+// Use BU-calculated totals for cross-slide consistency
+var buRev26=r26, buRev25=r25, buProf26=p26, buProf25=p25;
+
+// Pies
+var pieC=['#1E3F73','#2B5C9E','#3A7CC3','#4E94D6','#6AA8E0','#87BCE8','#A3CFEF','#B8D9F4','#C5E0F7','#D2E8FA','#E0F0FC','#E8F4FD','#F0F8FE','#F5FBFE'];
+function drawPie(cid,data,lid){
+  var c=document.getElementById(cid);if(!c)return;var ctx=c.getContext('2d'),w=c.width,h=c.height,cx=w/2,cy=h/2,r=Math.min(w,h)/2-14;
+  var tot=data.reduce(function(s,d){return s+Math.abs(d.v)},0),slices=data.slice().sort(function(a,b){return Math.abs(b.v)-Math.abs(a.v)}),angle=-Math.PI/2;
+  slices.forEach(function(s,i){
+    var sa=Math.abs(s.v)/tot*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+sa);ctx.closePath();ctx.fillStyle=s.c||pieC[i%pieC.length];ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=0.8;ctx.stroke();
+    var mid=angle+sa/2,px=cx+Math.cos(mid)*(r*0.58),py=cy+Math.sin(mid)*(r*0.58),pct=(Math.abs(s.v)/tot*100).toFixed(1);
+    ctx.fillStyle='#fff';ctx.font='bold 10px "Times New Roman",serif';ctx.textAlign='center';ctx.textBaseline='middle';if(parseFloat(pct)>=5)ctx.fillText(pct+'%',px,py);angle+=sa;
+  });
+  var leg='';slices.forEach(function(s,i){leg+='<span><span class="dot" style="background:'+(s.c||pieC[i%pieC.length])+'"></span>'+s.n+'</span>'});document.getElementById(lid).innerHTML=leg;
+}
+drawPie('pieRev',bus.map(function(b){return{n:b.name,v:b.rev26}}),'legRev');
+drawPie('pieProf',bus.filter(function(b){return b.prof26>0}).map(function(b){return{n:b.name,v:b.prof26}}),'legProf');
+
+// === SLIDE 2: Full-page large table ===
+var segs=[
+  {name:'一级市场各BU',rev26:buRev26,rev25:buRev25,prof26:buProf26,prof25:buProf25,group:'一级市场',gold:true},
+  {name:'远方公募',rev26:5704,rev25:3849,prof26:-43542,prof25:-36048,group:'二级市场及恒盛'},
+  {name:'金涌 (60.81%)',rev26:64483,rev25:50403,prof26:41226,prof25:30893,group:'二级市场及恒盛'},
+  {name:'恒盛 (56.25%)',rev26:49108,rev25:51211,prof26:-4496,prof25:-22446,group:'二级市场及恒盛',gold:true},
+  {name:'本部各职能部门',rev26:67612,rev25:97701,prof26:-55027,prof25:-30083,group:'集团本部',note:true}
+];
+
+var s2='<tr><th>板块</th><th>收入<br>2026预算</th><th>收入<br>2025实际</th><th>收入<br>变动额</th><th class="divider-col prof-hdr">分摊后利润<br>2026预算</th><th class="prof-hdr">分摊后利润<br>2025实际</th><th class="prof-hdr">利润<br>变动额</th></tr>';
+var sR26=0,sR25=0,sP26=0,sP25=0,g='';
+segs.forEach(function(it){
+  if(it.group!==g){g=it.group;s2+='<tr class="group-hdr"><td colspan="7">'+g+'</td></tr>'}
+  sR26+=it.rev26;sR25+=it.rev25;sP26+=it.prof26;sP25+=it.prof25;
+  var rc=it.rev26-it.rev25,pc=it.prof26-it.prof25;
+  var rowCls=it.gold?' class="gold-end"':'';
+  var revNote=it.note?'<sup style="font-size:12px;color:#B8942E">注</sup>':'';
+  s2+='<tr'+rowCls+'><td class="label">'+it.name+'</td><td>'+fmt(it.rev26)+revNote+'</td><td>'+fmt(it.rev25)+'</td><td class="'+(rc>=0?'pos':'neg')+'">'+(rc>=0?'+':'')+fmt(rc)+'</td><td class="divider-col '+(it.prof26>=0?'pos':'neg')+'">'+fmt(it.prof26)+'</td><td class="'+(it.prof25>=0?'pos':'neg')+'">'+fmt(it.prof25)+'</td><td class="'+(pc>=0?'pos':'neg')+'">'+(pc>=0?'+':'')+fmt(pc)+'</td></tr>';
+});
+s2+='<tr class="total"><td class="label">集团总合计</td><td>'+fmt(sR26)+'</td><td>'+fmt(sR25)+'</td><td class="pos">+'+fmt(sR26-sR25)+'</td><td class="divider-col neg">'+fmt(sP26)+'</td><td class="neg">'+fmt(sP25)+'</td><td class="pos">'+(sP26-sP25>=0?'+':'')+fmt(sP26-sP25)+'</td></tr>';
+document.getElementById('s2Table').innerHTML=s2;
+
+// === SLIDE 3 ===
+var exp=[{name:'资讯系统',v26:4166,v25:1117,note:true},{name:'差旅',v26:2964,v25:2644},{name:'会议费',v26:360,v25:743},{name:'交通费',v26:350,v25:243},{name:'培训招聘',v26:208,v25:542},{name:'人力资源费',v26:15353,v25:12266},{name:'市场发展费',v26:4668,v25:4997},{name:'业务招待费',v26:1520,v25:1407},{name:'员工福利费',v26:787,v25:1036},{name:'其他业务支出',v26:13028,v25:12479},{name:'专业咨询费',v26:8252,v25:12968}];
+var eH='<tr><th>费用性质</th><th>2026预算</th><th>2025实际</th><th>变动额</th><th>变动率</th></tr>',e26=0,e25=0;
+exp.forEach(function(e){
+  e26+=e.v26;e25+=e.v25;var c=e.v26-e.v25,p=e.note?'注':(e.v25>0?(c/e.v25*100).toFixed(1)+'%':'—');
+  eH+='<tr><td class="label">'+e.name+'</td><td>'+fmt(e.v26)+'</td><td>'+fmt(e.v25)+'</td><td class="'+(c>=0?'neg':'pos')+'">'+(c>=0?'+':'')+fmt(c)+'</td><td>'+(c>=0?'+':'')+p+'</td></tr>';
+});
+var ec=e26-e25;
+eH+='<tr class="total"><td class="label">变动营运费用合计</td><td>'+fmt(e26)+'</td><td>'+fmt(e25)+'</td><td class="'+(ec>=0?'neg':'pos')+'">'+(ec>=0?'+':'')+fmt(ec)+'</td><td>'+(ec>=0?'+':'')+(e25>0?(ec/e25*100).toFixed(1)+'%':'—')+'</td></tr>';
+document.getElementById('expTable').innerHTML=eH;
+</script>
+</body>
+</html>
