@@ -434,29 +434,43 @@ var ctx=c.getContext('2d'),w,h;
 function resize(){var r=c.parentElement;w=c.width=r.offsetWidth||window.innerWidth;h=c.height=r.offsetHeight||100}
 setTimeout(resize,100);window.addEventListener('resize',resize);
 
-var waveColors=['#d35281','#0046ec','#18a2dc','#f4cc42','#41bb46'];
+var colors=[
+  ['#d35281','rgba(211,82,129,0.6)','rgba(211,82,129,0.3)','rgba(211,82,129,0.15)'],
+  ['#0046ec','rgba(0,70,236,0.55)','rgba(0,70,236,0.25)','rgba(0,70,236,0.12)'],
+  ['#18a2dc','rgba(24,162,220,0.55)','rgba(24,162,220,0.25)','rgba(24,162,220,0.12)'],
+  ['#f4cc42','rgba(244,204,66,0.5)','rgba(244,204,66,0.22)','rgba(244,204,66,0.1)'],
+  ['#41bb46','rgba(65,187,70,0.5)','rgba(65,187,70,0.22)','rgba(65,187,70,0.1)']
+];
+
+// Keep history for trail effect
+var trails=[]; for(var l=0;l<5;l++)trails.push([]);
 
 function draw(){
   ctx.clearRect(0,0,w,h);
   var t=Date.now()*0.001;
 
   for(var layer=0;layer<5;layer++){
-    var yBase=h*0.3+layer*h*0.14;
-    var amp=h*0.12;
-    var freq=0.0015+layer*0.0008;
-    var speed=0.7+layer*0.35;
-    var phase=layer*1.4;
-    var color=waveColors[layer];
+    var yBase=h*0.25+layer*h*0.16;
+    var amp=h*0.13;
+    var freq=0.0012+layer*0.0006;
+    var speed=0.8+layer*0.25;
+    var phase=layer*1.5;
 
-    // Dense dots forming wave shape
-    for(var i=0;i<400;i++){
-      var x=w*i/400;
-      var y=yBase+Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.7+t*0.4+phase)*amp*0.55;
-      // Vary dot size for depth effect
-      var r=1+Math.abs(Math.sin(x*freq*5+t*2+phase))*2;
-      var alpha=0.25+Math.abs(Math.sin(x*freq*3+t*1.5+phase))*0.4;
-      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
-      ctx.fillStyle=color;ctx.globalAlpha=alpha;ctx.fill()
+    // Each layer: 800 dots scattered vertically around the wave center
+    for(var i=0;i<800;i++){
+      var xPct=(i/800+t*0.02*(layer+1))%1; // slowly shift position
+      var x=xPct*w;
+      var waveY=Math.sin(x*freq-t*speed+phase)*amp+Math.cos(x*freq*2.5+t*0.35+phase)*amp*0.5;
+      // Scatter vertically with gaussian-like random spread
+      var scatter=(Math.random()+Math.random()+Math.random())/3-0.5;
+      var y=yBase+waveY+scatter*h*0.22;
+      var dist=Math.abs(scatter);
+      var alpha=(0.5-dist*2)*0.6;
+      if(alpha<0.05)continue;
+      var size=0.8+Math.random()*2.5;
+      var ci=dist<0.08?0:dist<0.16?1:dist<0.22?2:3;
+      ctx.beginPath();ctx.arc(x,y,size,0,Math.PI*2);
+      ctx.fillStyle=colors[layer][ci];ctx.globalAlpha=alpha;ctx.fill()
     }
     ctx.globalAlpha=1;
   }
