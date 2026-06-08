@@ -20,13 +20,19 @@
 *{margin:0;padding:0;box-sizing:border-box}
 a{text-decoration:none;color:inherit}
 body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line-height:1.85;display:flex;min-height:100vh;background:#fffefe;color:#010403}
+/* Subtle dot grid background */
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle,#e8e8e8 1px,transparent 1px);background-size:28px 28px;opacity:0.5}
 
 /* Sidebar */
 .sidebar{
   width:210px;position:fixed;top:0;left:0;bottom:0;z-index:100;
-  background:#fffefe;border-right:1px solid #e8e8e8;
+  background:linear-gradient(180deg,#fffefe 0%,#fafaff 50%,#fffefe 100%);
+  border-right:1px solid #e8e8e8;box-shadow:2px 0 20px rgba(0,0,0,0.03);
   padding:32px 18px;display:flex;flex-direction:column;
 }
+.sidebar::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#d35281,#0046ec,#18a2dc,#41bb46);z-index:1}
 .side-logo{text-align:center;margin-bottom:8px}
 .side-logo .whale{font-size:40px;display:block;animation:swim 3s ease-in-out infinite}
 @keyframes swim{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-5px) rotate(-2deg)}75%{transform:translateY(3px) rotate(2deg)}}
@@ -53,17 +59,27 @@ body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line
 
 /* Hero */
 .hero{
-  position:relative;padding:32px 56px 22px;text-align:center;
-  background:linear-gradient(180deg,#f8f8ff 0%,#fffefe 100%);
+  position:relative;padding:36px 56px 26px;text-align:center;
+  background:linear-gradient(180deg,#f8f8ff 0%,#fdfdff 30%,#fffefe 70%,#fefefe 100%);
   border-bottom:1px solid #e8e8e8;overflow:hidden;
 }
 .hero::before{content:"";position:absolute;top:-60%;left:-20%;width:140%;height:220%;
-  background:radial-gradient(circle 180px at 25% 40%,rgba(211,82,129,0.04),transparent),
-  radial-gradient(circle 160px at 75% 30%,rgba(0,70,236,0.04),transparent),
-  radial-gradient(circle 140px at 50% 70%,rgba(24,162,220,0.03),transparent);
+  background:radial-gradient(circle 200px at 20% 35%,rgba(211,82,129,0.06),transparent),
+  radial-gradient(circle 180px at 80% 25%,rgba(0,70,236,0.05),transparent),
+  radial-gradient(circle 160px at 45% 65%,rgba(24,162,220,0.04),transparent),
+  radial-gradient(circle 120px at 65% 55%,rgba(65,187,70,0.03),transparent);
   pointer-events:none}
 .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,#d35281,#0046ec,#18a2dc,#41bb46,#f4cc42);opacity:0.8}
+/* Floating geometric shapes in hero */
+.hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero-shape{position:absolute;border-radius:50%;opacity:0.06;animation:heroFloat 12s ease-in-out infinite}
+.hero-shape:nth-child(1){width:80px;height:80px;background:#d35281;top:15%;left:10%;animation-delay:0s}
+.hero-shape:nth-child(2){width:60px;height:60px;background:#0046ec;top:25%;right:14%;animation-delay:2s}
+.hero-shape:nth-child(3){width:100px;height:100px;background:#18a2dc;bottom:20%;left:20%;animation-delay:4s}
+.hero-shape:nth-child(4){width:50px;height:50px;background:#41bb46;top:40%;right:8%;animation-delay:6s}
+.hero-shape:nth-child(5){width:70px;height:70px;background:#f4cc42;bottom:30%;right:22%;animation-delay:8s}
+@keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(15px,-20px) scale(1.1)}50%{transform:translate(-10px,-10px) scale(0.95)}75%{transform:translate(-15px,15px) scale(1.05)}}
 .hero>*{position:relative;z-index:1}
 .hero h1{font-size:56px;font-weight:800;letter-spacing:4px;
   background:linear-gradient(135deg,#d35281 0%,#0046ec 40%,#18a2dc 70%,#41bb46 100%);
@@ -89,9 +105,12 @@ body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line
 .content{padding:0 48px 60px;position:relative}
 
 .section-title{
-  margin:48px 0 20px;text-align:center;font-size:15px;letter-spacing:3px;color:#9ba09f;font-weight:700;
+  display:flex;align-items:center;gap:18px;margin:48px 0 20px;text-align:center;font-size:15px;letter-spacing:3px;color:#9ba09f;font-weight:700;white-space:nowrap;
 }
-.section-title .en{font-family:"Quicksand",sans-serif;font-size:12px;color:#9ba09f;letter-spacing:3px;text-transform:uppercase;display:block;margin-top:2px;font-weight:600}
+.section-title::before,.section-title::after{content:"";height:1.5px;flex:1;border-radius:1px}
+.section-title::before{background:linear-gradient(90deg,transparent,#d35281,#0046ec)}
+.section-title::after{background:linear-gradient(90deg,#18a2dc,#41bb46,transparent)}
+.section-title .en{font-family:"Quicksand",sans-serif;font-size:12px;color:#9ba09f;letter-spacing:3px;text-transform:uppercase;display:inline;margin-left:8px;font-weight:600}
 
 /* Module cards */
 .modules{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -99,14 +118,15 @@ body{font-family:"幼圆","YouYuan","PingFang SC",sans-serif;font-size:17px;line
   border-radius:22px;padding:40px 36px;background:#fffefe;
   border:1.5px solid #e8e8e8;min-height:340px;position:relative;
   opacity:0;transform:translateY(24px);
-  transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
   cursor:pointer;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.03);
 }
 .module-card.visible{opacity:1;transform:translateY(0)}
-.module-card:hover{transform:translateY(-5px)}
+.module-card:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(0,0,0,0.08)}
 .module-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;border-radius:22px 22px 0 0}
-.module-card::after{content:"";position:absolute;top:-40px;right:-40px;width:100px;height:100px;border-radius:50%;opacity:0.04;transition:all 0.5s}
-.module-card:hover::after{transform:scale(1.4);opacity:0.08}
+.module-card::after{content:"";position:absolute;top:-50px;right:-50px;width:140px;height:140px;border-radius:50%;opacity:0.04;transition:all 0.6s}
+.module-card:hover::after{transform:scale(1.5);opacity:0.1}
 
 .module-card .num{font-size:15px;letter-spacing:4px;margin-bottom:14px;font-weight:700}
 .module-card h2{font-size:28px;font-weight:800;margin-bottom:2px;letter-spacing:1px}
@@ -268,6 +288,10 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
 <div class="main">
 
 <section class="hero">
+  <div class="hero-shapes">
+    <div class="hero-shape"></div><div class="hero-shape"></div><div class="hero-shape"></div>
+    <div class="hero-shape"></div><div class="hero-shape"></div>
+  </div>
   <h1>大 鲸 鱼</h1>
   <p class="en-hero">The Big Whale</p>
   <p class="tagline">投资尽调<span class="dot">·</span>财务建模<span class="dot">·</span>专业会计师</p>
