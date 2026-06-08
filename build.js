@@ -12,7 +12,7 @@ const ARTICLES_DIR = path.join(SITE, 'articles');
 // Article mapping: vault path → site slug
 const ARTICLES = [
   {
-    vault: '大鲸鱼的记忆篇/会计思考文章集/我给国家大基金算个账.md',
+    vault: '大鲸鱼的记忆篇/会计思考文章集/Published - 我给国家大基金算个账.md',
     slug: 'big-fund',
     title: '我给国家大基金算个账',
     date: '2026-05-29',
@@ -28,7 +28,7 @@ const ARTICLES = [
     tag: '跨学科',
   },
   {
-    vault: '大鲸鱼的记忆篇/会计思考文章集/让我们回归现金流.md',
+    vault: '大鲸鱼的记忆篇/会计思考文章集/Published- 让我们回归现金流.md',
     slug: 'cashflow',
     title: '让我们回归现金流',
     date: '2026-05-25',
@@ -36,12 +36,20 @@ const ARTICLES = [
     tag: '财务分析',
   },
   {
-    vault: '大鲸鱼的记忆篇/会计思考文章集/利润表要改头换面了.md',
+    vault: '大鲸鱼的记忆篇/会计思考文章集/Published - 利润表的改头换面.md',
     slug: 'cas30-reform',
     title: '利润表要改头换面了，而你还没注意到',
     date: '2026-06-01',
     desc: 'CAS 30修订与IFRS 18趋同：利润表从分步式变分类式，对投资者意味着什么',
     tag: '会计准则',
+  },
+  {
+    vault: '大鲸鱼的记忆篇/会计思考文章集/Published - 新私募18条-让我来吐个槽.md',
+    slug: 'pe18-rant',
+    title: '私募18条：让我吐个槽',
+    date: '2026-06-08',
+    desc: '国办函54号深度拆解：财政部门出资人能力、5000万红线与PE/VC的现实矛盾',
+    tag: '投资分析',
   },
   {
     vault: '专业知识大集锦/0.一些实务问题/研发支出费用化后作价入股的会计分析.md',
