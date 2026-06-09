@@ -52,7 +52,7 @@ const ARTICLES = [
     tag: '投资分析',
   },
   {
-    vault: '大鲸鱼的记忆篇/会计思考文章集/补偿性资产-19号解释.md',
+    vault: '大鲸鱼的记忆篇/会计思考文章集/Published - 并购中的"兜底条款"，该如何走进报表里.md',
     slug: 'cas19-compensatory',
     title: '并购中的"兜底条款"，如何走入报表里',
     date: '2026-06-09',
