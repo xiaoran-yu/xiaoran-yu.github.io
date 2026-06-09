@@ -44,10 +44,10 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
   background:linear-gradient(135deg,#d24970,#3a414f,#c3d2e3,#d24970);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-.side-logo .sub{font-family:"Quicksand",sans-serif;font-size:10px;color:#9ba09f;letter-spacing:5px;font-weight:600;margin-top:2px}
+.side-logo .sub{font-family:"Quicksand",sans-serif;font-size:10px;color:#6a7a8a;letter-spacing:5px;font-weight:600;margin-top:2px}
 .side-nav{margin-top:40px;flex:1;display:flex;flex-direction:column;gap:4px}
 .side-nav a{
-  color:#9ba09f;padding:11px 16px;border-radius:14px;font-size:15px;
+  color:#6a7a8a;padding:11px 16px;border-radius:14px;font-size:15px;
   transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;font-weight:500;
 }
 .side-nav a:hover{color:#3a414f;background:rgba(0,70,236,0.04);transform:translateX(4px)}
@@ -55,7 +55,7 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 .side-nav a.active::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:26px;border-radius:0 4px 4px 0;
   background:linear-gradient(180deg,#d24970,#3a414f)}
 .side-nav .icon{display:inline-block;width:20px;text-align:center;margin-right:8px;font-size:14px}
-.side-footer{font-size:11px;color:#9ba09f;text-align:center}
+.side-footer{font-size:11px;color:#6a7a8a;text-align:center}
 
 /* Main */
 .main{margin-left:210px;flex:1}
@@ -63,7 +63,7 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 /* Hero — horizontal + particle vortex */
 .hero{
   position:relative;padding:26px 48px 20px;display:flex;align-items:center;gap:32px;
-  background:#e8eaed;border-bottom:1px solid #d0d3d6;overflow:hidden;min-height:0;
+  background:#3a414f;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;min-height:0;
 }
 .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,#d24970,#3a414f,#c3d2e3,#d24970,#ecd05d);opacity:0.8;z-index:2}
@@ -73,15 +73,15 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 /* Center: text */
 .hero-text{flex:1;min-width:0}
 .hero h1{font-size:38px;font-weight:800;letter-spacing:3px;line-height:1.15;
-  background:linear-gradient(135deg,#d24970 0%,#3a414f 40%,#c3d2e3 70%,#d24970 100%);
+  background:linear-gradient(135deg,#d24970 0%,#ecd05d 40%,#c3d2e3 70%,#d24970 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero .en-hero{font-family:"Quicksand",sans-serif;font-size:11px;color:#9ba09f;letter-spacing:6px;text-transform:uppercase;margin-top:0;font-weight:600}
-.hero .tagline{font-size:14px;color:#4a5058;margin-top:4px;font-weight:500}
+.hero .en-hero{font-family:"Quicksand",sans-serif;font-size:11px;color:#8a95a3;letter-spacing:6px;text-transform:uppercase;margin-top:0;font-weight:600}
+.hero .tagline{font-size:14px;color:#c3d2e3;margin-top:4px;font-weight:500}
 .hero .tagline .dot{display:inline-block;margin:0 4px;font-weight:800}
 .hero .tagline .dot:nth-child(1){color:#d24970}
-.hero .tagline .dot:nth-child(2){color:#3a414f}
+.hero .tagline .dot:nth-child(2){color:#ecd05d}
 .hero .tagline .dot:nth-child(3){color:#c3d2e3}
-.hero .sub-line{font-family:"Quicksand",sans-serif;font-size:11px;color:#9ba09f;margin-top:1px;letter-spacing:1px}
+.hero .sub-line{font-family:"Quicksand",sans-serif;font-size:11px;color:#8a95a3;margin-top:1px;letter-spacing:1px}
 /* Right: CTA + social */
 .hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
 .hero .cta{
@@ -90,8 +90,8 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 }
 .hero .cta:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,70,236,0.4)}
 .hero .social{display:flex;gap:16px}
-.hero .social a{color:#9ba09f;font-size:12px;transition:color 0.3s}
-.hero .social a:hover{color:#3a414f}
+.hero .social a{color:#8a95a3;font-size:12px;transition:color 0.3s}
+.hero .social a:hover{color:#ecd05d}
 
 @media(max-width:1023px){
   .hero{padding:14px 24px 10px;gap:20px}
@@ -107,19 +107,19 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 }
 .hero .cta:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,70,236,0.25)}
 .hero .social{display:flex;gap:20px}
-.hero .social a{color:#9ba09f;font-size:13px;transition:color 0.3s}
+.hero .social a{color:#6a7a8a;font-size:13px;transition:color 0.3s}
 .hero .social a:hover{color:#3a414f}
 
 /* Content */
 .content{padding:0 48px 60px;position:relative}
 
 .section-title{
-  display:flex;align-items:center;gap:18px;margin:48px 0 20px;text-align:center;font-size:15px;letter-spacing:3px;color:#9ba09f;font-weight:700;white-space:nowrap;
+  display:flex;align-items:center;gap:18px;margin:48px 0 20px;text-align:center;font-size:15px;letter-spacing:3px;color:#6a7a8a;font-weight:700;white-space:nowrap;
 }
 .section-title::before,.section-title::after{content:"";height:1.5px;flex:1;border-radius:1px}
 .section-title::before{background:linear-gradient(90deg,transparent,#d24970,#3a414f)}
 .section-title::after{background:linear-gradient(90deg,#c3d2e3,#d24970,transparent)}
-.section-title .en{font-family:"Quicksand",sans-serif;font-size:12px;color:#9ba09f;letter-spacing:3px;text-transform:uppercase;display:inline;margin-left:8px;font-weight:600}
+.section-title .en{font-family:"Quicksand",sans-serif;font-size:12px;color:#6a7a8a;letter-spacing:3px;text-transform:uppercase;display:inline;margin-left:8px;font-weight:600}
 
 /* Module cards */
 .modules{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -142,7 +142,7 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
 .module-card .en-title{font-family:"Quicksand",sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:600}
 .module-card .sep{width:50px;height:3px;margin:14px 0 18px;border-radius:3px}
 .module-card .desc{font-size:16px;line-height:2;margin-bottom:14px;color:#555}
-.module-card .desc .en-desc{display:block;font-size:13px;color:#9ba09f;margin-top:2px}
+.module-card .desc .en-desc{display:block;font-size:13px;color:#6a7a8a;margin-top:2px}
 .module-card .items{list-style:none;padding:0}
 .module-card .items li{font-size:15px;padding:5px 0;color:#555}
 .module-card .items li::before{content:"▸ ";margin-right:8px;font-weight:700;font-size:10px}
@@ -218,16 +218,16 @@ body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;point
   background:radial-gradient(circle,rgba(0,70,236,0.04),transparent 70%)}
 .about-inner>*{position:relative;z-index:1}
 .about-inner h3{font-size:24px;font-weight:800;color:#010403;margin-bottom:4px}
-.about-inner .en-name{font-family:"Quicksand",sans-serif;font-size:14px;color:#9ba09f;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.about-inner .en-name{font-family:"Quicksand",sans-serif;font-size:14px;color:#6a7a8a;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
 .about-inner .role{font-size:15px;color:#555;line-height:1.9}
 .about-inner .bio{font-size:16px;color:#010403;line-height:2;flex:1}
 
 /* Footer */
 footer{border-top:1px solid #e8e8e8;padding:36px 0;text-align:center}
 footer .flinks{display:flex;justify-content:center;gap:24px;margin-bottom:12px}
-footer .flinks a{color:#9ba09f;font-size:15px;transition:color 0.3s}
+footer .flinks a{color:#6a7a8a;font-size:15px;transition:color 0.3s}
 footer .flinks a:hover{color:#3a414f}
-footer .copy{font-size:13px;color:#9ba09f}
+footer .copy{font-size:13px;color:#6a7a8a}
 footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inline;letter-spacing:1px}
 
 /* Floating cute crew */
@@ -384,10 +384,10 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
       <div class="sep"></div>
       <p class="desc">专业思考、案例复盘、行业洞察。<span class="en-desc">Professional reflections, case reviews &amp; industry insights.</span></p>
       <ul class="items">
-        <li><a href="articles/big-fund.html">我给国家大基金算个账</a> <span style="font-size:12px;color:#9ba09f;font-family:Quicksand,sans-serif">2026-05-29</span></li>
-        <li><a href="articles/lit-accountants.html">文学史上的会计</a> <span style="font-size:12px;color:#9ba09f;font-family:Quicksand,sans-serif">2026-05-28</span></li>
-        <li><a href="articles/cashflow.html">让我们回归现金流</a> <span style="font-size:12px;color:#9ba09f;font-family:Quicksand,sans-serif">2026-05-25</span></li>
-        <li><a href="articles/rd-capitalization.html">研发费用化后作价入股：一个会计矛盾</a> <span style="font-size:12px;color:#9ba09f;font-family:Quicksand,sans-serif">2026-05-22</span></li>
+        <li><a href="articles/big-fund.html">我给国家大基金算个账</a> <span style="font-size:12px;color:#6a7a8a;font-family:Quicksand,sans-serif">2026-05-29</span></li>
+        <li><a href="articles/lit-accountants.html">文学史上的会计</a> <span style="font-size:12px;color:#6a7a8a;font-family:Quicksand,sans-serif">2026-05-28</span></li>
+        <li><a href="articles/cashflow.html">让我们回归现金流</a> <span style="font-size:12px;color:#6a7a8a;font-family:Quicksand,sans-serif">2026-05-25</span></li>
+        <li><a href="articles/rd-capitalization.html">研发费用化后作价入股：一个会计矛盾</a> <span style="font-size:12px;color:#6a7a8a;font-family:Quicksand,sans-serif">2026-05-22</span></li>
       </ul>
       <div class="tag-row"><span class="tag">投资分析</span><span class="tag">跨学科</span><span class="tag">财务思考</span></div>
       <div class="arrow">→</div>
@@ -412,7 +412,7 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
       <h3>于潇然</h3>
       <p class="en-name">Yu Xiaoran</p>
       <p class="role">四大合伙人 · 上市公司CFO<br>私募股权基金合伙人 · 北京</p>
-      <p style="color:#9ba09f;font-size:13px;margin-top:6px;font-family:Quicksand,sans-serif">Big Four Partner · Public-Company CFO<br>Private Equity Fund Partner · Beijing</p>
+      <p style="color:#6a7a8a;font-size:13px;margin-top:6px;font-family:Quicksand,sans-serif">Big Four Partner · Public-Company CFO<br>Private Equity Fund Partner · Beijing</p>
     </div>
     <p class="bio">深耕中国财务逾二十年。从四大合伙人到上市公司CFO，再到私募股权基金合伙人。专精中国及香港会计准则下的交易架构设计、财务模型审阅与IPO规范辅导。相信数字背后的商业实质，相信会计的尽头是专业判断。</p>
   </div>
@@ -420,7 +420,7 @@ footer .copy .en{font-family:"Quicksand",sans-serif;font-size:12px;display:inlin
   <footer>
     <div class="flinks"><a href="mailto:13911773853@139.com">13911773853@139.com</a><a href="https://github.com/xiaoran-yu">GitHub</a></div>
     <p class="copy">&copy; 2026 大鲸鱼 · 于潇然 <span class="en">The Big Whale · Yu Xiaoran</span></p>
-    <p style="font-size:11px;color:#9ba09f;margin-top:2px">Built with 砚台</p>
+    <p style="font-size:11px;color:#6a7a8a;margin-top:2px">Built with 砚台</p>
   </footer>
 
 </div></div>
